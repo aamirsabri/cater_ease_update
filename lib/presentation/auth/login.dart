@@ -1,9 +1,10 @@
+import 'package:cater_ease/app/language/language.dart';
+import 'package:cater_ease/app/language/locale_constants.dart';
 import 'package:cater_ease/presentation/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-
 
 import '../../app/functions.dart';
 import '../../model/user_model.dart';
@@ -23,14 +24,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   LoginViewModelController? _loginViewModelController;
-
 
   int? _selectedCompanyCode;
 
   final _formKey = GlobalKey<FormState>();
-
 
   @override
   void initState() {
@@ -43,16 +41,23 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   @override
-  void didChangeDependencies() async {    // TODO: implement didChangeDependencies
-   
+  void didChangeDependencies() async {
+    // TODO: implement didChangeDependencies
+    changeLanguage(context, "en");
+
     EasyLoading.dismiss();
     super.didChangeDependencies();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     _loginViewModelController = LoginViewModelController(context);
     return Scaffold(
+      appBar: AppBar(
+        title: Text(Languages.of(context)?.appName ?? ""),
+      ),
+      body: Center(child: Text(Languages.of(context)?.appName ?? "fdjhf")),
     );
   }
 }
