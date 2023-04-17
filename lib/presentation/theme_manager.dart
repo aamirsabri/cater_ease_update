@@ -39,7 +39,7 @@ ThemeData getApplicationTheme() {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         textStyle: getRegularStyle(fontColor: ColorManager.white,),
-        primary: ColorManager.primary,
+        backgroundColor: ColorManager.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSize.s12),
         ),
@@ -47,11 +47,11 @@ ThemeData getApplicationTheme() {
     ),
 
     textTheme: TextTheme(
-      headline1: getSemiBoldStyle(fontColor: ColorManager.darkgrey,fontSize: FontSize.s16),
-      subtitle1: getMediumStyle(fontColor: ColorManager.lightGrey,fontSize: FontSize.s14),
-      subtitle2: getMediumStyle(fontColor: ColorManager.primary,fontSize: FontSize.s12),
-      caption: getRegularStyle(fontColor: ColorManager.grey),
-      bodyText1: getRegularStyle(fontColor: ColorManager.grey)
+      displayLarge: getSemiBoldStyle(fontColor: ColorManager.darkgrey,fontSize: FontSize.s16),
+      titleMedium: getMediumStyle(fontColor: ColorManager.lightGrey,fontSize: FontSize.s14),
+      titleSmall: getMediumStyle(fontColor: ColorManager.primary,fontSize: FontSize.s12),
+      bodySmall: getRegularStyle(fontColor: ColorManager.grey),
+      bodyLarge: getRegularStyle(fontColor: ColorManager.grey)
     ),
 
         inputDecorationTheme: InputDecorationTheme(

@@ -67,30 +67,30 @@ class AppServiceClient {
     }
   }
 
-  static Future<dynamic> getAllCompanyMaster() async {
-    try {
-      var url = Uri.parse(Constant.baseUrl + Constant.getAllCompanies);
-      var response = await getRawHttp(url, null);
-      if (response is Failure) {
-        return response;
-      }
-      if (response == null) {
-        return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
-      }
-      if (response['status'] == 200) {
-        return response[JSON_OBJECT_COMPANIES].map((company) {
+  // static Future<dynamic> getAllCompanyMaster() async {
+  //   try {
+  //     var url = Uri.parse(Constant.baseUrl + Constant.getAllCompanies);
+  //     var response = await getRawHttp(url, null);
+  //     if (response is Failure) {
+  //       return response;
+  //     }
+  //     if (response == null) {
+  //       return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+  //     }
+  //     if (response['status'] == 200) {
+  //       return response[JSON_OBJECT_COMPANIES].map((company) {
           
-        }).toList();
-      } else {
-        if (response['status'] is int) {
-          return Failure(response['status'], response['message']);
-        } else {
-          return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
-        }
-      }
-    } catch (e) {
-      return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
-    }
-  }
+  //       }).toList();
+  //     } else {
+  //       if (response['status'] is int) {
+  //         return Failure(response['status'], response['message']);
+  //       } else {
+  //         return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+  //       }
+  //     }
+  //   } catch (e) {
+  //     return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+  //   }
+  // }
 
 }

@@ -1,23 +1,29 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-
-import 'package:provider/provider.dart';
-
-import '../../domain/user_provider.dart';
-import '../../model/user_model.dart';
-import '../../network/apis.dart';
-import '../../network/failure.dart';
 
 class RegisterViewModelController {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   BuildContext context;
   RegisterViewModelController(this.context);
-  Future<dynamic?> login(
-      int companyId, String empId, String password) async {
-   
+
+  Future<dynamic?> signUpUser(String email, String password) async {
+      String result = "Error while Registration!";
+      try{
+        if(validate(email, password)){
+        UserCredential credential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+        result = "success";        
+      }else{
+        result = "Fields are not valid";
+      }
+      }catch(e){
+      }      
+      return result;
+      
   }
 
-  Future<dynamic> _fetchData() async {
-    var result = await AppServiceClient.getAllCompanyMaster();
-    return result;
+  bool validate(String email,String password){
+    return true;
   }
+
+
 }

@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 
-import '../domain/mylocation.dart';
-import '../presentation/color_manager.dart';
-
 
 
 String? getStringFromDate(DateTime date, String format) {

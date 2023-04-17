@@ -25,14 +25,7 @@ class ColorManager {
   static Color error = HexColor.fromHex("#E61F34");
   static Color white = HexColor.fromHex("#FFFFFF");
 
-  static Color absentColor = HexColor.fromHex("#ef5350");
-  static Color presenceColor = HexColor.fromHex("#3cb043");
-  static Color regularizationColor = HexColor.fromHex('#003f1a');
-  static Color leaveColor = HexColor.fromHex("#E7C27D");
-  static Color HL_HA_COLOR = HexColor.fromHex("#D24E43");
-  static Color HL_HP_COLOR = HexColor.fromHex("#C7A317");
-  static Color HA_HP_COLOR = HexColor.fromHex("#AF69AF");
-  static Color DAY_OFF_COLOR = HexColor.fromHex("#00563F");
+  
 }
 
 extension HexColor on Color {
