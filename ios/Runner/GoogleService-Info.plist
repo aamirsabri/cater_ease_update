@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>195349302325-2reh4lfhrn61u9f7h00a4ie1og9hsr8l.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.195349302325-2reh4lfhrn61u9f7h00a4ie1og9hsr8l</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD1rrB3_nofkDdJc7odaTMK75deH0sLfgo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>195349302325</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.caterEase</string>
+	<key>PROJECT_ID</key>
+	<string>cater-ease</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cater-ease.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:195349302325:ios:31c0af6267debd94fe757c</string>
+</dict>
+</plist>

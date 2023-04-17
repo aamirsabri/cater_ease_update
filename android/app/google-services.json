@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "195349302325",
+    "project_id": "cater-ease",
+    "storage_bucket": "cater-ease.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195349302325:android:737308df98c0500afe757c",
+        "android_client_info": {
+          "package_name": "com.example.cater_ease"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "195349302325-gm0pcp4h282ebmum6lvs20pmj1av8gf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGmXoX1z9SOl_uQF9hraBDQTJSc7A3g9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "195349302325-gm0pcp4h282ebmum6lvs20pmj1av8gf3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
