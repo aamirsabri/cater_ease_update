@@ -1,4 +1,5 @@
 import 'package:cater_ease/app/language/language.dart';
+import 'package:cater_ease/app/language/languageEn.dart';
 import 'package:cater_ease/app/language/locale_constants.dart';
 import 'package:cater_ease/presentation/color_manager.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,17 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: Text(Languages.of(context)?.appName ?? ""),
       ),
-      body: Center(child: Text(Languages.of(context)?.appName ?? "fdjhf")),
+      body: Column(
+        children: [
+          Text(Languages.of(context)?.appName ?? "Cater Ease"),
+          ElevatedButton(
+              onPressed: () async {
+                changeLanguage(context, "en");
+                setState(() {});
+              },
+              child: Text(Languages.of(context)?.loginLabel ?? ""))
+        ],
+      ),
     );
   }
 }

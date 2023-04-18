@@ -33,6 +33,7 @@ class MyApp extends StatefulWidget {
 
   static void setLocale(BuildContext context, Locale newLocale) {
     var state = context.findAncestorStateOfType<_MyAppState>();
+    print("new locale " + newLocale.toString());
     state?.setLocale(newLocale);
   }
 
@@ -43,7 +44,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
 
-  Locale _locale = Locale('gu', '');
+  Locale? _locale;
 
   void setLocale(Locale locale) {
     setState(() {
