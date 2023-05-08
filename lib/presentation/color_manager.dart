@@ -5,7 +5,7 @@ class ColorManager {
   static Color backgroundDark = HexColor.fromHex("#F5F5F5");
   static Color backgroundLight = HexColor.fromHex("#FFFFFF");
   // static Color primary = HexColor.fromHex("#5292f7");
-  static Color primary = HexColor.fromHex("#C3DBB2");
+  static Color primary = HexColor.fromHex("#ce871a");
   
   // static Color primary = HexColor.fromHex("#125421");
   static Color primaryLight = HexColor.fromHex("#4e8ff2");
@@ -16,6 +16,7 @@ class ColorManager {
   // static Color primaryOpacity70 = HexColor.fromHex("#B3FB8701");
   static Color primaryOpacity70 = HexColor.fromHex("#E8F4E4");
   static Color primaryFont = HexColor.fromHex("#3A3B3C");
+  static Color secondaryFont = HexColor.fromHex("FFFFFF");
   static Color primaryFontOpacity70 = HexColor.fromHex("#999999");
 
   // static Color secondary = HexColor.fromHex("#0541e1");
