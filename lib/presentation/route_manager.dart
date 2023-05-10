@@ -1,7 +1,7 @@
 import 'package:cater_ease/presentation/auth/login.dart';
 import 'package:cater_ease/presentation/auth/register.dart';
+import 'package:cater_ease/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
-
 
 import 'color_manager.dart';
 
@@ -38,11 +38,9 @@ class RouteGenerator {
       case Routes.loginRoute:
         {
           return MaterialPageRoute(
-              builder: (_) => LoginScreen(), settings: settings);
+              builder: (_) => HomeScreen(), settings: settings);
         }
 
-     
-   
       default:
         return unDefinedRoute();
     }
