@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 
 
@@ -57,4 +58,8 @@ String removeZeroFromNumber(double? number) {
   }
   RegExp regex = RegExp(r'([.]*0)(?!.*\d)');
   return number.toString().replaceAll(regex, '');
+}
+
+Future<String> generateCatererId() async{
+  return Uuid().v1();
 }

@@ -1,7 +1,8 @@
+import 'package:cater_ease/presentation/auth/login.dart';
+import 'package:cater_ease/presentation/auth/register.dart';
 import 'package:flutter/material.dart';
 
 
-import 'auth/login.dart';
 import 'color_manager.dart';
 
 import 'style_manager.dart';
@@ -29,6 +30,11 @@ class Routes {
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.registerRoute:
+        {
+          return MaterialPageRoute(
+              builder: (_) => RegisterScreen(), settings: settings);
+        }
       case Routes.loginRoute:
         {
           return MaterialPageRoute(
