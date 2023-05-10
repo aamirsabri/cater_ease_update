@@ -59,6 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
         title: Text(Languages.of(context)?.appName ?? ""),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(Languages.of(context)?.appName ?? "Cater Ease"),
           ElevatedButton(
