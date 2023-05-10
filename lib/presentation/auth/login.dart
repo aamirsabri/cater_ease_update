@@ -59,7 +59,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if(_formKey.currentState?.validate()?? false){
       String res = await _loginViewModelController.signInUser(_emailController.text,_passwordConroller.text);
       EasyLoading.dismiss();
-      if(res == "success"){        
+      if(res == "success"){  
+                      
         showSnack(context,Languages.of(context)?.successfullySignedIn ?? AppStrings.successfullySignedIn);      
         Navigator.pushReplacementNamed(context, Routes.homeRoute);
       }else{

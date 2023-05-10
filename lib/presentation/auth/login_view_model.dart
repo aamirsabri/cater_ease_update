@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../app/constants.dart';
+
 class LoginViewModelController {
   
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -34,6 +36,7 @@ class LoginViewModelController {
   }
 
   Future<dynamic?> signInUser(String email, String password) async {
+    String catererId;
     final SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
     AppPreference appPreference = AppPreference(_sharedPreferences);
 
@@ -45,12 +48,16 @@ class LoginViewModelController {
       DocumentReference _currentUserRef = _firestore.collection("users").doc(credential.user!.uid);
       String imei = await _currentUserRef.get().then((DocumentSnapshot doc) {
         final data = doc.data() as Map<String, dynamic>;
+        catererId = data[COL_CATERER_ID];
+        appPreference.setPref(CATERER_ID, catererId);
         return data["imei"];
+
       });
       String currentImei = await DeviceInfo.getUniqueDeviceId();
       if(imei == currentImei){
         await appPreference.setPref(EMAIL, email);
-        await appPreference.setPref(PASSWORD, password);        
+        await appPreference.setPref(PASSWORD, password);   
+        
         res = "success";
       }else{
         res = "Your Device ID does not match";

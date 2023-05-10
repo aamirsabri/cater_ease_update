@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import 'app/language/applocationlization_delegate.dart';
 import 'app/language/locale_constants.dart';
+import 'domain/caterer_provider.dart';
 import 'domain/user_provider.dart';
 import 'presentation/route_manager.dart';
 import 'presentation/theme_manager.dart';
@@ -23,6 +24,7 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => UserDetailProvider()),
+      ChangeNotifierProvider(create: (context) => CatererProvider()),
     ],
     child: MyApp(),
   ));
