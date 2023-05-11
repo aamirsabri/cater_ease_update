@@ -24,20 +24,16 @@ class AppPreference {
     await _sharedPreferences.setString(PREF_KEY_EMP_ID, empId);
   }
 
-  Future getValue(String key) async{
-    String? value = await _sharedPreferences.getString(key);  
-      if(value == null || value.isEmpty){
-        return '';
-      }else {
-        return value;
-      }
-    
+  Future getValue(String key) async {
+    String? value = await _sharedPreferences.getString(key);
+    if (value == null || value.isEmpty) {
+      return '';
+    } else {
+      return value;
+    }
   }
 
-  
-  Future setPref(String key,String value) async {
+  Future setPref(String key, String value) async {
     await _sharedPreferences.setString(key, value);
   }
-
-
 }

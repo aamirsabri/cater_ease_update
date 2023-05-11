@@ -1,3 +1,5 @@
+import 'package:cater_ease/app/constants.dart';
+import 'package:cater_ease/presentation/route_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
@@ -57,4 +59,36 @@ String removeZeroFromNumber(double? number) {
 
 Future<String> generateCatererId() async {
   return Uuid().v1();
+}
+
+String getRouteFromNavigationItem(DRAWER_SCREEN item) {
+  switch (item) {
+    case DRAWER_SCREEN.HOME:
+      return Routes.homeRoute;
+
+    case DRAWER_SCREEN.MY_PROFILE:
+      return Routes.homeRoute;
+
+    case DRAWER_SCREEN.CUSTOMER:
+      // TODO: Handle this case.
+      return Routes.homeRoute;
+    case DRAWER_SCREEN.EVENT:
+      // TODO: Handle this case.
+      return Routes.homeRoute;
+    case DRAWER_SCREEN.DISH:
+      // TODO: Handle this case.
+      return Routes.homeRoute;
+    case DRAWER_SCREEN.MENU_ITEM:
+      // TODO: Handle this case.
+      return Routes.homeRoute;
+    case DRAWER_SCREEN.PAST_FUNCTIONS:
+      // TODO: Handle this case.
+      return Routes.homeRoute;
+    case DRAWER_SCREEN.MANAGE_USER:
+      // TODO: Handle this case.
+      return Routes.homeRoute;
+    case DRAWER_SCREEN.LOG_OUT:
+      // TODO: Handle this case.
+      return Routes.homeRoute;
+  }
 }

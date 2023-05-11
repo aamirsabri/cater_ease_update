@@ -1,4 +1,3 @@
-
 class Constant {
   static const String baseUrl = "http://117.205.3.45:8082";
   // static const String testBaseUrl = "https://kasiri.mocklab.io";
@@ -90,6 +89,18 @@ enum USER_TYPE {
   PA_COR_EMP
 }
 
+enum DRAWER_SCREEN {
+  HOME,
+  MY_PROFILE,
+  CUSTOMER,
+  EVENT,
+  DISH,
+  MENU_ITEM,
+  PAST_FUNCTIONS,
+  MANAGE_USER,
+  LOG_OUT
+}
+
 const INCLUDE_SUB_LOCATIONS = 1;
 const DONT_INCLUDE_SUB_LOCATIONS = 0;
 
@@ -112,3 +123,10 @@ const String COL_MSG = "msg";
 const String COL_USER_ID = "userId";
 const String COL_USER_NAME = "userName";
 const String COL_PASSWORD = "password";
+
+abstract class SharedPreferencesKeys {
+  static const String PREF_KEY_EMP_ID = "PREF_KEY_EMP_ID";
+  static const String EMAIL = "email";
+  static const String PASSWORD = "password";
+  static const String CATERER_ID = "catererId";
+}

@@ -8,39 +8,41 @@ class AppStrings {
   static const String emailHint = "Your Email";
   static const String usernameHint = "Your Name";
   static const String registerLabel = "Register";
-  static const String successfullySignedUp = "Congratulation! You Signed Up successfully";
-  static const String successfullySignedIn = "Congratulation! You Signed In successfully";
+  static const String successfullySignedUp =
+      "Congratulation! You Signed Up successfully";
+  static const String successfullySignedIn =
+      "Congratulation! You Signed In successfully";
   static const String fullNameHint = "Your Full Name";
   static const String catererName = "Caterer Name";
   static const String placeNameHint = "City Name";
   static const String loginLabel = "Sign In";
   static const String dontHaveAccount = "તમારો અકાઉન્ટ નથી ?";
   static const String registerTitle = "Register with Your User ID";
-  
+
   static const String homeScreenTitle = "Dashboard";
-  
+
   static const String hrsLabel = "hrs";
-  
+
   static const String summery = "Summery";
- 
+
   static const String description = "Description";
- 
+
   static const String view = "View";
   static const String waiting = "Please Wait..";
   static const String unknownError = "Unknown error occurred";
   static const String cancel = "Cancel";
   static const String weekPassword = "Password is too week";
-  static const String emailAlreadyExist = "The account already exists for that email";
-
+  static const String emailAlreadyExist =
+      "The account already exists for that email";
 
   //Gujarati label
   static const String home = "હોમ";
-  static const String myprofile ="મારી પ્રોફાઇલ";
+  static const String myprofile = "મારી પ્રોફાઇલ";
   static const String customer = "ગ્રાહક";
   static const String event = "ઈવેન્ટ";
   static const String dish = "ડિશ";
   static const String menuItem = "મેનુ આઇટમ";
   static const String pastFunction = "પાછલા ફંકસન";
   static const String manageUser = "મેનેજ યુઝર";
-  
+  static const String logOut = "LOG OUT";
 }

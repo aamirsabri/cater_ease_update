@@ -28,5 +28,5 @@ class FontSize {
   static const double mediumLargeSize = 18.0;
 
   static const double bigSize = 24.0;
-  static const double drowerListItemFontSize = 14.0;
+  static const double drowerListItemFontSize = 18.0;
 }
