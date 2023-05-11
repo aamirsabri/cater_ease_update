@@ -16,9 +16,10 @@ class CatererProvider with ChangeNotifier{
     notifyListeners();
   }
 
-  fetchCatererDetail(String catererId) async{
+  Future<void> fetchCatererDetail(String catererId) async{
+    
     SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
-    String catererId = await AppPreference(_sharedPreferences).getValue(COL_CATERER_ID);
+    catererId = catererId??await AppPreference(_sharedPreferences).getValue(COL_CATERER_ID);
     FirebaseFirestore _firestore = FirebaseFirestore.instance;
     Caterer caterer = await _firestore.collection("caterers").doc(catererId).get().
       then((DocumentSnapshot<Map<String,dynamic>> doc){

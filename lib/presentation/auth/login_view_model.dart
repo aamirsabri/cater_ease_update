@@ -1,20 +1,25 @@
 import 'package:cater_ease/app/app_pref.dart';
 import 'package:cater_ease/app/deviceinfo.dart';
+import 'package:cater_ease/domain/caterer_provider.dart';
+import 'package:cater_ease/domain/user_provider.dart';
+import 'package:cater_ease/model/caterer_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cater_ease/model/user_model.dart' as user;
 
 import '../../app/constants.dart';
 
 class LoginViewModelController {
-  
+  BuildContext context;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
  
   String res = "Something went wrong while login!";
-  LoginViewModelController();
+  LoginViewModelController(this.context);
 
   Future<dynamic?> autoLogin() async{
     try{
@@ -46,9 +51,11 @@ class LoginViewModelController {
         password: password.trim()
       );
       DocumentReference _currentUserRef = _firestore.collection("users").doc(credential.user!.uid);
-      String imei = await _currentUserRef.get().then((DocumentSnapshot doc) {
+      String imei = await _currentUserRef.get().then((DocumentSnapshot doc) async{
+        Provider.of<UserDetailProvider>(context,listen: false).updateUser(user.User.fromFirestore(doc as DocumentSnapshot<Map<String,dynamic>>));       
         final data = doc.data() as Map<String, dynamic>;
         catererId = data[COL_CATERER_ID];
+        await Provider.of<CatererProvider>(context,listen: false).fetchCatererDetail(catererId);
         appPreference.setPref(CATERER_ID, catererId);
         return data["imei"];
 

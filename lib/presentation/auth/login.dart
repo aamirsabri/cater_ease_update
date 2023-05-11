@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void initState() {
-    _loginViewModelController = LoginViewModelController();
+    _loginViewModelController = LoginViewModelController(context);
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
       overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void didChangeDependencies() async {
     // TODO: implement didChangeDependencies
-    _loginViewModelController = LoginViewModelController();
+    _loginViewModelController = LoginViewModelController(context);
 
     super.didChangeDependencies();
   }

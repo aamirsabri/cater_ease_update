@@ -11,5 +11,7 @@ class UserDetailProvider with ChangeNotifier {
     _user = user;
     notifyListeners();
   }
+
+  
   
 }

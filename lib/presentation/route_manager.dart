@@ -38,8 +38,11 @@ class RouteGenerator {
       case Routes.loginRoute:
         {
           return MaterialPageRoute(
-              builder: (_) => HomeScreen(), settings: settings);
+              builder: (_) => LoginScreen(), settings: settings);
         }
+      case Routes.homeRoute:{
+        return MaterialPageRoute(builder: (_) => HomeScreen());
+      }
 
       default:
         return unDefinedRoute();

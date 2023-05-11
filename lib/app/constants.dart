@@ -106,3 +106,9 @@ const String COL_LOGO = "logo";
 const String COL_MOBILE = "mobile";
 const String COL_PLACE = "place";
 const String COL_IS_ACTIVE = "isActive";
+
+const String COL_IMEI = "imei";
+const String COL_MSG = "msg";
+const String COL_USER_ID = "userId";
+const String COL_USER_NAME = "userName";
+const String COL_PASSWORD = "password";

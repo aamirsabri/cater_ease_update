@@ -33,5 +33,14 @@ class AppStrings {
   static const String emailAlreadyExist = "The account already exists for that email";
 
 
+  //Gujarati label
+  static const String home = "હોમ";
+  static const String myprofile ="મારી પ્રોફાઇલ";
+  static const String customer = "ગ્રાહક";
+  static const String event = "ઈવેન્ટ";
+  static const String dish = "ડિશ";
+  static const String menuItem = "મેનુ આઇટમ";
+  static const String pastFunction = "પાછલા ફંકસન";
+  static const String manageUser = "મેનેજ યુઝર";
   
 }
