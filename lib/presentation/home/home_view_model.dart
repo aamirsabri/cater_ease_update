@@ -1,5 +1,6 @@
 import 'package:cater_ease/app/deviceinfo.dart';
 import 'package:cater_ease/app/functions.dart';
+import 'package:cater_ease/network/networkinfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -18,7 +19,10 @@ class HomeViewModelController {
       String mobileNo, String catererName, String place) async {
     EasyLoading.show();
     String result = "Error while Registration!";
+
     try {
+  
+
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       String catererId = await generateCatererId();
