@@ -3,6 +3,7 @@ import 'package:cater_ease/domain/user_provider.dart';
 import 'package:cater_ease/model/caterer_model.dart';
 import 'package:cater_ease/presentation/color_manager.dart';
 import 'package:cater_ease/presentation/font_manager.dart';
+import 'package:cater_ease/presentation/route_manager.dart';
 import 'package:cater_ease/presentation/style_manager.dart';
 import 'package:cater_ease/presentation/value_manager.dart';
 import 'package:cater_ease/presentation/widget/drawer_list_tile.dart';
@@ -41,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       drawer: Container(
         padding: const EdgeInsets.symmetric(horizontal: 32),
         decoration: BoxDecoration(
@@ -136,6 +138,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.pushNamed(context, Routes.newFunction);
+            }, 
+            icon: Icon(Icons.plus_one)),
+        ],
         title: Text("Home"),
       ),
       body: Center(child: Text("Home")),

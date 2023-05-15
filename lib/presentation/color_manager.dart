@@ -18,7 +18,7 @@ class ColorManager {
   static Color primaryFont = HexColor.fromHex("#3A3B3C");
   static Color secondaryFont = HexColor.fromHex("FFFFFF");
   static Color primaryFontOpacity70 = HexColor.fromHex("#999999");
-
+  static Color disabledColor = HexColor.fromHex("#D6D6D6");
   // static Color secondary = HexColor.fromHex("#0541e1");
   static Color secondary = HexColor.fromHex("#414141");
   // static Color secondary = HexColor.fromHex("#3478E9");

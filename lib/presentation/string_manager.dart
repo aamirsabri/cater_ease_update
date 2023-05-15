@@ -43,4 +43,20 @@ class AppStrings {
   static const String pastFunction = "પાછલા ફંકસન";
   static const String manageUser = "મેનેજ યુઝર";
   
+  //screen title
+  static const String newFunction = "નવો ફંક્શન";
+
+
+  //widget label and hint
+  static const String mobileNoLabel = "મોબાઈલ ન.";
+  static const String searchCustomerHint= "ગ્રાહક સર્ચ કરો";
+  static const String customerNameLabel = "ગ્રાહકનું નામ";
+  static const String functionNameLabel= "ફંક્શનનું પ્રકાર";
+  static const String placeLabel = "સરનામું/સ્થળ";
+  static const String familyNameLabel = "પરિવાર નું નામ";
+  static const String functionNameHint = "લગ્ન";
+  static const String newConsumerLabel = "નવો ગ્રાહક";
+  static const String addressLabel = "એડરેસ";
+  static const String okButtonLabel = "ઓકે";
+  
 }

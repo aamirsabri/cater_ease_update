@@ -70,6 +70,27 @@ class Constant {
   static const String testGetLocations = "/rdss/getLocationsByLocation";
 }
 
+class DBConstant{
+  static const String CUSTOMER_ID = "CUSTOMER_ID";
+  static const String CUSTOMER_NAME = "CUSTOMER_NAME";
+  static const String ADDRESS = "ADDRESS";
+  static const String WHATSAPP_NUMBER = "WA_NUMBER";
+  static const String EMAIL = "EMAIL";
+  static const String CATERER_ID = "CATERER_ID";
+  static const String CATERER_NAME = "CATERER_NAME";
+  static const String CATERER_ADDRESS = "ADDRESS";
+  static const String CATERER_MOBILE = "MOBILE";
+  static const String CATERER_EMAIL = "EMAIL";
+  static const String CATERER_PLACE = "PLACE";
+  static const String CATERER_LOGO = "LOGO";
+  static const String CUSTOMER_MOBILE = "MOBILE";
+
+  static const String FUNCTION_NAME = "FUNCTION_NAME";
+  static const String FUNCTION_ID = "FUNCTION_ID";
+  static const String FUNCTION_START_DATE= "START_DATE";
+  static const String FUNCTION_END_DATE= "END_DATE";
+}
+
 enum SELECTED_LEAVE_TYPE { FULL_DAY, FIRST_HALF, SECOND_HALF }
 
 enum USER_TYPE {
