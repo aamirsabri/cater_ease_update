@@ -13,6 +13,7 @@ class FontWeightManger {
 }
 
 class FontSize {
+  static const double labelSize = 16;
   static const double s12 = 12.0;
   static const double s14 = 14.0;
   static const double s16 = 16.0;
@@ -26,7 +27,8 @@ class FontSize {
   static const double smallSize = 10.0;
   static const double extraSmallSize = 8.0;
   static const double mediumLargeSize = 18.0;
-
+  static const double appBarLabelSize = 20.0;
   static const double bigSize = 24.0;
+  static const double buttonFontSize = 16.0;
   static const double drowerListItemFontSize = 18.0;
 }

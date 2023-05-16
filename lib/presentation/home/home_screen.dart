@@ -42,12 +42,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        backgroundColor: ColorManager.primary,
-        shadowColor: ColorManager.lightGrey,
-        width: MediaQuery.of(context).size.width * 0.75,
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
+      
+      drawer: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        decoration: BoxDecoration(
+            color: ColorManager.primary,
+            borderRadius: BorderRadius.circular(16)),
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: ListView(
           children: [
             Expanded(
               child: ListView(
@@ -172,7 +174,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       appBar: AppBar(
-        title: Text(AppStrings.appName),
+        actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.pushNamed(context, Routes.newFunction);
+            }, 
+            icon: Icon(Icons.plus_one)),
+        ],
+        title: Text("Home"),
       ),
       body: Center(child: Text("Home")),
     );

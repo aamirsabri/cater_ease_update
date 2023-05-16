@@ -1,5 +1,6 @@
 import 'package:cater_ease/presentation/auth/login.dart';
 import 'package:cater_ease/presentation/auth/register.dart';
+import 'package:cater_ease/presentation/function/new_function.dart';
 import 'package:cater_ease/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,18 +14,8 @@ class Routes {
   static const String registerRoute = "/register";
   static const String mainRoute = "/";
   static const String testRoute = "/test";
-  static const String regularizeRoute = "/regularize";
-  static const String timcardRoute = "/timecard";
-  static const String requestDetail = "/requestDetail";
-  static const String approvalRequest = "/approverRequest";
-  static const String applyLeave = "/applyLeave";
-  static const String navigationScreen = "/navigationScreen";
-  static const String adminPendingRequest = "/adminPendingRequests";
-  static const String adminPastRequest = "/adminPastRequests";
-  static const String adminUserWiseAttendanceSummery =
-      "/userwiseAttendanceSummery";
-  static const String holidayList = "/holidayList";
-  static const String makeAnnouncementRoute = "/makeAnnouncement";
+  static const String newFunction = "/newFunction";
+  
 }
 
 class RouteGenerator {
@@ -42,6 +33,9 @@ class RouteGenerator {
         }
       case Routes.homeRoute:{
         return MaterialPageRoute(builder: (_) => HomeScreen());
+      }
+      case Routes.newFunction:{
+        return MaterialPageRoute(builder: (_) => NewFunctionScreen());
       }
 
       default:

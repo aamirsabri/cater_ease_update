@@ -21,9 +21,12 @@ class AppPadding {
   static const double p28 = 28.0;
   static const double p30 = 30.0;
   static const double p40 = 40.0;
+  static const double screenPadding = 24;
 }
 
 class AppSize {
+  static const double buttonHeight = 50.0;
+  static const double borderRadius = 16.0;
   static const double s0 = 0.0;
   static const double drawerListItemIconSize = 20.0;
   static const double s1_5 = 1.5;
