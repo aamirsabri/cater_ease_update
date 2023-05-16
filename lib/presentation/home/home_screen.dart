@@ -59,8 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: DrawerHeader(
                       decoration: BoxDecoration(
                         border: Border(
-                          bottom: Divider.createBorderSide(context,
-                              color: ColorManager.primary, width: 1.0),
+                          bottom: Divider.createBorderSide(
+                            context,
+                            color: ColorManager.primary,
+                            width: 1.0,
+                          ),
                         ),
                       ),
                       // child: Row(
