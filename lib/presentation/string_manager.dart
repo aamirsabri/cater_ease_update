@@ -60,5 +60,7 @@ class AppStrings {
   static const String newConsumerLabel = "નવો ગ્રાહક";
   static const String addressLabel = "એડરેસ";
   static const String okButtonLabel = "ઓકે";
+  static const String emailLabel = "ઈમેલ";
+  static const String newCustomerAdded = "નવા ગ્રાહક સફળતાપૂર્વક એડ થઈ ગયા છે";
   
 }

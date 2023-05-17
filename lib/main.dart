@@ -1,4 +1,5 @@
 import 'package:cater_ease/app/database/dbhelper.dart';
+import 'package:cater_ease/domain/customer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -27,6 +28,7 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (context) => UserDetailProvider()),
       ChangeNotifierProvider(create: (context) => CatererProvider()),
+      ChangeNotifierProvider(create: (context) => CustomerProvider()),
     ],
     child: MyApp(),
   ));
