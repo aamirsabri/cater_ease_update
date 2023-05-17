@@ -3,14 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class Customer{
-  String customerId;
+  String? customerId;
   String customerName;
   String? email;
   String? address; 
   String mobile;
 
   Customer({
-    required this.customerId,
+    this.customerId,
     required this.customerName,
     this.email,
     required this.mobile,
@@ -34,8 +34,7 @@ class Customer{
 
 
   Map<String, dynamic> toMap() {
-    return {
-      DBConstant.CUSTOMER_ID: customerId,
+    return {      
       DBConstant.CUSTOMER_NAME: customerName,
       DBConstant.EMAIL: email??"",
       DBConstant.WHATSAPP_NUMBER: mobile,
@@ -44,6 +43,6 @@ class Customer{
   }
 
   String toString(){
-    return "customer_id - " + customerId + " name - " + customerName + " address - " + address!; 
+    return "customer_id - " + customerId! + " name - " + customerName + " address - " + address!; 
   }
 }
