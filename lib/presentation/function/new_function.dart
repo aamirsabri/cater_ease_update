@@ -1,4 +1,5 @@
 import 'package:cater_ease/domain/caterer_provider.dart';
+import 'package:cater_ease/domain/customer_provider.dart';
 import 'package:cater_ease/model/caterer_model.dart';
 import 'package:cater_ease/presentation/color_manager.dart';
 import 'package:cater_ease/presentation/common/show_snack.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/customer_model.dart';
 import '../font_manager.dart';
 import 'new_function_view_model.dart';
 
@@ -21,6 +23,7 @@ class NewFunctionScreen extends StatefulWidget {
 }
 
 class _NewFunctionScreenState extends State<NewFunctionScreen> {
+  late Customer customer;
   late String catererId;
   late NewFunctionNewViewModel _newFunctionNewViewModel;
   final mobiles = ["9824747764", "9876543210", "9824125412"];
@@ -71,6 +74,8 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
         showSnack(context, result.toString());
       }
     }
+
+    customer = Provider.of<CustomerProvider>(context).currentCustomer!;
   }
 
   List<String> getFunctionSuggesions(String pattern) {
