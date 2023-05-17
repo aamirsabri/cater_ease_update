@@ -62,10 +62,17 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                           Navigator.of(context).pop();
                         },
                       ),
-                      Text(AppStrings.newConsumerLabel,style: getRegularStyle(fontColor: ColorManager.primary,fontSize: FontSize.appBarLabelSize),),
+                      Text(
+                        AppStrings.newConsumerLabel,
+                        style: getRegularStyle(
+                            fontColor: ColorManager.primary,
+                            fontSize: FontSize.appBarLabelSize),
+                      ),
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 20,
+                  ),
                   buidTextFormField(
                       controller: _nameController,
                       label: AppStrings.customerNameLabel),
@@ -80,11 +87,16 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
               actions: [
                 ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  style: ElevatedButton.styleFrom(backgroundColor: ColorManager.primary),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorManager.primary),
                   //return false when click on "NO"
-                  child: Text(AppStrings.okButtonLabel,style: getSemiBoldStyle(fontColor: ColorManager.secondaryFont,fontSize: FontSize.buttonFontSize),),
+                  child: Text(
+                    AppStrings.okButtonLabel,
+                    style: getSemiBoldStyle(
+                        fontColor: ColorManager.secondaryFont,
+                        fontSize: FontSize.buttonFontSize),
+                  ),
                 ),
-               
               ],
             ));
   }
