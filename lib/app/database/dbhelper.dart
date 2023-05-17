@@ -28,7 +28,7 @@ class DBHelper {
   static Future _onCreate(Database db, int version) async {
     db.execute('''
         CREATE TABLE CUSTOMER(
-          CUSTOMER_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+          CUSTOMER_ID INTEGER PRIMARY KEY AUTOINCREMENT, 
           CUSTOMER_NAME TEXT,         
           ADDRESS TEXT,
           MOBILE TEXT,

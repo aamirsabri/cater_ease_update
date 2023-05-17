@@ -24,7 +24,7 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
   late String catererId;
   late NewFunctionNewViewModel _newFunctionNewViewModel;
   final mobiles = ["9824747764", "9876543210", "9824125412"];
-  List<String> functionTypes =[];
+  List<String> functionTypes = [];
   final _formKey = GlobalKey<FormState>();
   TextEditingController _customerAddress = TextEditingController();
   TextEditingController _customerMobile = TextEditingController();
@@ -49,26 +49,25 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
 
-
-@override
+  @override
   void didChangeDependencies() async {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     _newFunctionNewViewModel = NewFunctionNewViewModel(context);
-    if(functionTypes==null || functionTypes.isEmpty){
+    if (functionTypes == null || functionTypes.isEmpty) {
       catererId = Provider.of<CatererProvider>(context).caterer!.catererId;
-      final result = await _newFunctionNewViewModel.getFunctionSuggesions(catererId);
-      print("caterer id " + catererId + " result "+ result.toString());
+      final result =
+          await _newFunctionNewViewModel.getFunctionSuggesions(catererId);
+      print("caterer id " + catererId + " result " + result.toString());
       EasyLoading.dismiss();
-      if(result is List){
+      if (result is List) {
         // functionTypes = result;
         setState(() {
           functionTypes = List.from(result as List<String>);
         });
-      }else{
+      } else {
         showSnack(context, result.toString());
       }
     }
@@ -84,54 +83,11 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
     return result;
   }
 
-  
-
-  Future<Widget> showNewConsumerDialog() async {
+  Future showNewConsumerDialog() async {
     final _customerFormKey = GlobalKey<FormState>();
-    return await showDialog(
+    await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-<<<<<<< HEAD
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      Text(
-                        AppStrings.newConsumerLabel,
-                        style: getRegularStyle(
-                            fontColor: ColorManager.primary,
-                            fontSize: FontSize.appBarLabelSize),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  buidTextFormField(
-                      controller: _nameController,
-                      label: AppStrings.customerNameLabel),
-                  buidTextFormField(
-                      controller: _customerMobile,
-                      label: AppStrings.mobileNoLabel),
-                  buidTextFormField(
-                      controller: _customerAddress,
-                      label: AppStrings.addressLabel),
-                ],
-              ),
-              actions: [
-                ElevatedButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorManager.primary),
-=======
-
               content: Form(
                 key: _customerFormKey,
                 child: Column(
@@ -145,10 +101,17 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                             Navigator.of(context).pop();
                           },
                         ),
-                        Text(AppStrings.newConsumerLabel,style: getRegularStyle(fontColor: ColorManager.primary,fontSize: FontSize.appBarLabelSize),),
+                        Text(
+                          AppStrings.newConsumerLabel,
+                          style: getRegularStyle(
+                              fontColor: ColorManager.primary,
+                              fontSize: FontSize.appBarLabelSize),
+                        ),
                       ],
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
                     buidTextFormField(
                         controller: _nameController,
                         label: AppStrings.customerNameLabel + "*"),
@@ -167,19 +130,24 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
               actions: [
                 ElevatedButton(
                   onPressed: () async {
-                    if(_customerFormKey.currentState?.validate()??false){                      
-                      final res = await _newFunctionNewViewModel.saveNewCustomer(_nameController.text,_customerEmail.text,_customerMobile.text,_customerAddress.text);
+                    if (_customerFormKey.currentState?.validate() ?? false) {
+                      final res =
+                          await _newFunctionNewViewModel.saveNewCustomer(
+                              _nameController.text,
+                              _customerEmail.text,
+                              _customerMobile.text,
+                              _customerAddress.text);
                       EasyLoading.dismiss();
-                      if(res == "success"){
+                      if (res == "success") {
                         showSnack(context, AppStrings.newCustomerAdded);
                         Navigator.pop(context);
-                      }else{
+                      } else {
                         showSnack(context, res);
                       }
                     }
                   },
-                  style: ElevatedButton.styleFrom(backgroundColor: ColorManager.primary),
->>>>>>> 4d956395f3aab0c1dc514170e99d395a8ef69476
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: ColorManager.primary),
                   //return false when click on "NO"
                   child: Text(
                     AppStrings.okButtonLabel,
@@ -328,7 +296,7 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
     );
   }
 
-  Widget buidTextFormField({controller, label, hint, icon, enable,formKey}) {
+  Widget buidTextFormField({controller, label, hint, icon, enable, formKey}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
@@ -345,7 +313,7 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
           ),
           TextFormField(
             validator: ((value) {
-              if(value == null || value.isEmpty){
+              if (value == null || value.isEmpty) {
                 return "value must not be null";
               }
               return null;
