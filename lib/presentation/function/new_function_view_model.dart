@@ -28,15 +28,14 @@ class NewFunctionNewViewModel {
         print(customer.toMap().toString());
         if (await NetworkInfo.isConnected()) {
           final customerId = await DBHelper.insertCustomer(customer);
-          if(customerId is int){
+          if (customerId is int) {
             customer.customerId = int.parse(customerId.toString());
             await Provider.of<CustomerProvider>(context, listen: false)
-              .updateCustomer(customer);
+                .updateCustomer(customer);
             return "success";
-          }else{
+          } else {
             return "error while inserting new customer";
           }
-          
         } else {
           return "check your internet connection";
         }
@@ -47,28 +46,34 @@ class NewFunctionNewViewModel {
       return e.toString();
     }
   }
-  Future<String> saveNewFunction(
-      int customerId, String functionName, String? address, DateTime? startDate,DateTime? endDate) async {
+
+  Future<String> saveNewFunction(int customerId, String functionName,
+      String? address, DateTime? startDate, DateTime? endDate) async {
     EasyLoading.show();
     String result = "something went wrong";
     try {
       if (await NetworkInfo.isConnected()) {
-        final catererId = Provider.of<CatererProvider>(context,listen: false).caterer!.catererId;
+        final catererId = Provider.of<CatererProvider>(context, listen: false)
+            .caterer!
+            .catererId;
         CustomerFunction newFunction = CustomerFunction(
-            catererId: catererId, customerId: customerId, functionName: functionName, address: address,startDate: startDate,endDate: endDate);
+            catererId: catererId,
+            customerId: customerId,
+            functionName: functionName,
+            address: address,
+            startDate: startDate,
+            endDate: endDate);
         print(newFunction.toMap().toString());
-        
-          final functionId = await DBHelper.insertCustomerFunction(newFunction);
-          if(functionId is int){
-            newFunction.functionId = int.parse(functionId.toString());
-            await Provider.of<CustomerProvider>(context,listen: false)
+
+        final functionId = await DBHelper.insertCustomerFunction(newFunction);
+        if (functionId is int) {
+          newFunction.functionId = int.parse(functionId.toString());
+          await Provider.of<CustomerProvider>(context, listen: false)
               .updateCustomerFunction(newFunction);
-            return "success";
-          }else{
-            return "error while inserting new customer";
-          }
-          
-        
+          return "success";
+        } else {
+          return "error while inserting new customer";
+        }
       } else {
         return "check your network info";
       }
@@ -99,6 +104,28 @@ class NewFunctionNewViewModel {
       return e.code.toString();
     } catch (e) {
       return e.toString();
+    }
+  }
+
+  Future<dynamic> getAllConsumers() async {
+    Map<String, Customer> customers = {};
+    EasyLoading.show();
+    List<String> functionTypes = [];
+    try {
+      if (await NetworkInfo.isConnected()) {
+        final res = await DBHelper.getAllCustomers();
+        EasyLoading.dismiss();
+        print("customrs " + customers.values.toString());
+        return customers.addAll(res);
+      } else {
+        EasyLoading.showError("check your internet connection");
+        return {};
+      }
+    } catch (e) {
+      print("error while fetching all consumers " + e.toString());
+      EasyLoading.dismiss();
+      EasyLoading.showError(e.toString());
+      return {};
     }
   }
 }

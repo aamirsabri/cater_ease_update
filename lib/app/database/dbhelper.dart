@@ -1,3 +1,4 @@
+import 'package:cater_ease/app/constants.dart';
 import 'package:cater_ease/model/customer_model.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
@@ -62,5 +63,15 @@ class DBHelper {
     Database db = await getDatabase;
     await db.insert(DB_TABLE_CUSTOMER_FUNCTION, function.toMap());
     print("recored inserted " + function.toString());
+  }
+
+  static Future<Map<String, Customer>> getAllCustomers() async {
+    Map<String, Customer> customers = {};
+    Database db = getDatabase;
+    List<Map<String, dynamic>> results = await db.query(DB_TABLE_CUSTOMER);
+    for (var result in results) {
+      customers[result[DBConstant.CUSTOMER_MOBILE]] = Customer.fromMap(result);
+    }
+    return customers;
   }
 }

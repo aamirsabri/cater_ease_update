@@ -21,8 +21,17 @@ class Customer {
     return Customer(
         customerId: data?[DBConstant.CUSTOMER_ID],
         customerName: data?[DBConstant.CUSTOMER_NAME],
-        address: data?[DBConstant.ADDRESS],
-        email: data?[DBConstant.EMAIL],
+        address: data?[DBConstant.ADDRESS] ?? "",
+        email: data?[DBConstant.EMAIL] ?? "",
+        mobile: data?[DBConstant.CUSTOMER_MOBILE]);
+  }
+
+  factory Customer.fromMap(Map<String, dynamic>? data) {
+    return Customer(
+        customerId: data?[DBConstant.CUSTOMER_ID],
+        customerName: data?[DBConstant.CUSTOMER_NAME],
+        address: data?[DBConstant.ADDRESS] ?? "",
+        email: data?[DBConstant.EMAIL] ?? "",
         mobile: data?[DBConstant.CUSTOMER_MOBILE]);
   }
 

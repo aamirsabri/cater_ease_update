@@ -26,8 +26,8 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
   CustomerProvider? customerProvider;
   Customer? _customer;
   late String catererId;
-  late NewFunctionNewViewModel _newFunctionNewViewModel;
-  final mobiles = ["9824747764", "9876543210", "9824125412"];
+  NewFunctionNewViewModel? _newFunctionNewViewModel;
+  List<String> mobiles = [];
   List<String> functionTypes = [];
   final _formKey = GlobalKey<FormState>();
   TextEditingController _customerAddress = TextEditingController();
@@ -39,6 +39,7 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
   TextEditingController _placeController = TextEditingController();
   TextEditingController _familyNameController = TextEditingController();
   TextEditingController _customerEmail = TextEditingController();
+
   List<String> getSuggesions(String pattern) {
     List<String> result = [];
     mobiles.forEach((element) {
@@ -52,19 +53,33 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
   @override
   void initState() {
     // TODO: implement initState
+    getNewFunctionViewModel().then((value) {
+      _newFunctionNewViewModel = value;
+    }).then((value) {
+      _newFunctionNewViewModel!.getAllConsumers().then((value) {
+        if (value is Map<String, Customer>) {
+          mobiles = List.from(value.keys);
+          print(mobiles);
+        }
+      });
+    });
     super.initState();
+  }
+
+  Future<NewFunctionNewViewModel> getNewFunctionViewModel() async {
+    return NewFunctionNewViewModel(context);
   }
 
   @override
   void didChangeDependencies() async {
-    customerProvider = Provider.of<CustomerProvider>(context,listen: true);
+    customerProvider = Provider.of<CustomerProvider>(context, listen: true);
     // TODO: implement didChangeDependencies
-    
+
     _newFunctionNewViewModel = NewFunctionNewViewModel(context);
     if (functionTypes == null || functionTypes.isEmpty) {
       catererId = Provider.of<CatererProvider>(context).caterer!.catererId;
       final result =
-          await _newFunctionNewViewModel.getFunctionSuggesions(catererId);
+          await _newFunctionNewViewModel!.getFunctionSuggesions(catererId);
       print("caterer id " + catererId + " result " + result.toString());
       EasyLoading.dismiss();
       if (result is List) {
@@ -78,14 +93,12 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
       super.didChangeDependencies();
     }
 
-    
     // if(customer != null){
     //   _nameController.text = customer!.customerName;
     //   _mobileController.text = customer!.mobile;
     //   _placeController.text = customer!.address!;
     //   _customerEmail.text = customer!.email!;
     // }
-    
   }
 
   List<String> getFunctionSuggesions(String pattern) {
@@ -148,8 +161,8 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                 ElevatedButton(
                   onPressed: () async {
                     if (_customerFormKey.currentState?.validate() ?? false) {
-                      final res =
-                          await _newFunctionNewViewModel.saveNewCustomer(
+                      final res = await _newFunctionNewViewModel!
+                          .saveNewCustomer(
                               _nameController.text,
                               _customerEmail.text,
                               _customerMobile.text,
@@ -157,12 +170,11 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                       EasyLoading.dismiss();
                       if (res == "success") {
                         Navigator.pop(context);
-                        showSnack(context, AppStrings.newCustomerAdded);                        
-                        
+                        showSnack(context, AppStrings.newCustomerAdded);
                       } else {
                         showSnack(context, res);
                       }
-                    }else{
+                    } else {
                       showSnack(context, "Enter valid values");
                     }
                   },
@@ -182,17 +194,18 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     _customer = customerProvider!.currentCustomer;
-    if(_customer != null){
-      _nameController.text = _customer!.customerName;      
-      if(_placeController.text == ""){
+    if (_customer != null) {
+      _nameController.text = _customer!.customerName;
+      if (_placeController.text == "") {
         _placeController.text = _customer!.address!;
       }
-      if(_mobileController.text == "")
+      if (_mobileController.text == "")
         _mobileController.text = _customer!.mobile;
-      if(_familyNameController.text == ""){
-        _familyNameController.text = _nameController.text.split(' ').length>2?_nameController.text.split(' ')[1] + " " + AppStrings.familyLabel :_nameController.text.split(' ')[0] + " " + AppStrings.familyLabel;
+      if (_familyNameController.text == "") {
+        _familyNameController.text = _nameController.text.split(' ').length > 2
+            ? _nameController.text.split(' ')[1] + " " + AppStrings.familyLabel
+            : _nameController.text.split(' ')[0] + " " + AppStrings.familyLabel;
       }
     }
     return Scaffold(
@@ -218,7 +231,7 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
               children: [
                 TypeAheadFormField(
                   textFieldConfiguration: TextFieldConfiguration(
-                    controller: _searchController,                  
+                    controller: _searchController,
                     decoration: const InputDecoration(
                         labelText: AppStrings.searchCustomerHint,
                         icon: Icon(Icons.search),
@@ -238,9 +251,8 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                 Row(
                   children: [
                     Expanded(
-                      child: TextFormField(                      
-                        enabled: false,                      
-                        
+                      child: TextFormField(
+                        enabled: false,
                         controller: _nameController,
                         decoration: InputDecoration(
                             filled: true,
@@ -268,7 +280,8 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                   height: 16,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                   child: Text(
                     AppStrings.functionNameLabel,
                     style: getRegularStyle(
@@ -278,10 +291,11 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                 ),
                 TypeAheadFormField(
                   textFieldConfiguration: TextFieldConfiguration(
-                    controller: _functionName,                  
+                    controller: _functionName,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(AppSize.borderRadius),
+                        borderRadius:
+                            BorderRadius.circular(AppSize.borderRadius),
                       ),
                       hintText: AppStrings.functionNameHint,
                       hintStyle: getRegularStyle(
@@ -302,37 +316,38 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                 SizedBox(
                   height: 10,
                 ),
-                buidTextFormField(                  
+                buidTextFormField(
                     controller: _mobileController,
                     label: AppStrings.mobileNoLabel),
-                buidTextFormField(                
+                buidTextFormField(
                     controller: _placeController, label: AppStrings.placeLabel),
                 buidTextFormField(
-                  
                     controller: _familyNameController,
                     label: AppStrings.familyNameLabel),
                 SizedBox(
                   height: 16,
                 ),
                 ElevatedButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     if (_formKey.currentState?.validate() ?? false) {
-                      final res = await _newFunctionNewViewModel.saveNewFunction(
-                        _customer!.customerId!,
-                        _functionName.text + " " + AppStrings.celebrationLabel,
-                        _placeController.text,
-                        DateTime.now(),
-                        DateTime.now()
-                        );
+                      final res = await _newFunctionNewViewModel!
+                          .saveNewFunction(
+                              _customer!.customerId!,
+                              _functionName.text +
+                                  " " +
+                                  AppStrings.celebrationLabel,
+                              _placeController.text,
+                              DateTime.now(),
+                              DateTime.now());
                       EasyLoading.dismiss();
-                      if(res.toString() == "success"){
-                        showSnack(context, AppStrings.newFunctionCreationSuccess);
-                      }else{
+                      if (res.toString() == "success") {
+                        showSnack(
+                            context, AppStrings.newFunctionCreationSuccess);
+                      } else {
                         print(res.toString());
                         showSnack(context, res.toString());
                       }
-                    }
-                    else{
+                    } else {
                       showSnack(context, "Enter valid values");
                     }
                   },
@@ -354,7 +369,8 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
     );
   }
 
-  Widget buidTextFormField({initialValue,controller, label, hint, icon, enable, formKey}) {
+  Widget buidTextFormField(
+      {initialValue, controller, label, hint, icon, enable, formKey}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Column(
@@ -369,7 +385,7 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                   fontSize: FontSize.labelSize),
             ),
           ),
-          TextFormField(           
+          TextFormField(
             validator: ((value) {
               if (value == null || value.isEmpty) {
                 return "value must not be null";
