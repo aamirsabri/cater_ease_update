@@ -1,18 +1,19 @@
 import 'package:cater_ease/app/constants.dart';
+import 'package:cater_ease/app/functions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CustomerFunction {
-  String functionId;
+  int? functionId;
   String functionName;
   String catererId;
-  String customerId;
+  int customerId;
   String? address;
   DateTime? startDate;
   DateTime? endDate;
 
   CustomerFunction(
       {required this.customerId,
-      required this.functionId,
+      this.functionId,
       required this.functionName,
       required this.catererId,
       this.address,
@@ -38,8 +39,8 @@ class CustomerFunction {
       DBConstant.FUNCTION_NAME: functionName,
       DBConstant.CATERER_ID: catererId,
       DBConstant.ADDRESS: address ?? "",
-      DBConstant.FUNCTION_START_DATE: startDate ?? "",
-      DBConstant.FUNCTION_END_DATE: endDate ?? ""
+      DBConstant.FUNCTION_START_DATE: getStringFromDate(startDate!, "YYYY-MM-DD") ?? "",
+      DBConstant.FUNCTION_END_DATE: getStringFromDate(endDate!, "YYYY-MM-DD") ?? ""
     };
   }
 

@@ -2,7 +2,7 @@ import 'package:cater_ease/app/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Customer {
-  String? customerId;
+  int? customerId;
   String customerName;
   String? email;
   String? address;

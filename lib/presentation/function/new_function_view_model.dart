@@ -1,6 +1,9 @@
 import 'package:cater_ease/app/database/dbhelper.dart';
 import 'package:cater_ease/app/firebase/firebase_constants.dart';
+import 'package:cater_ease/app/functions.dart';
+import 'package:cater_ease/domain/caterer_provider.dart';
 import 'package:cater_ease/domain/customer_provider.dart';
+import 'package:cater_ease/model/customer_function_model.dart';
 import 'package:cater_ease/network/networkinfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,13 +27,48 @@ class NewFunctionNewViewModel {
             customerName: name, mobile: mobile, email: email, address: address);
         print(customer.toMap().toString());
         if (await NetworkInfo.isConnected()) {
-          await DBHelper.insertCustomer(customer);
-          await Provider.of<CustomerProvider>(context, listen: false)
+          final customerId = await DBHelper.insertCustomer(customer);
+          if(customerId is int){
+            customer.customerId = int.parse(customerId.toString());
+            await Provider.of<CustomerProvider>(context, listen: false)
               .updateCustomer(customer);
-          return "success";
+            return "success";
+          }else{
+            return "error while inserting new customer";
+          }
+          
         } else {
           return "check your internet connection";
         }
+      } else {
+        return "check your network info";
+      }
+    } catch (e) {
+      return e.toString();
+    }
+  }
+  Future<String> saveNewFunction(
+      int customerId, String functionName, String? address, DateTime? startDate,DateTime? endDate) async {
+    EasyLoading.show();
+    String result = "something went wrong";
+    try {
+      if (await NetworkInfo.isConnected()) {
+        final catererId = Provider.of<CatererProvider>(context,listen: false).caterer!.catererId;
+        CustomerFunction newFunction = CustomerFunction(
+            catererId: catererId, customerId: customerId, functionName: functionName, address: address,startDate: startDate,endDate: endDate);
+        print(newFunction.toMap().toString());
+        
+          final functionId = await DBHelper.insertCustomerFunction(newFunction);
+          if(functionId is int){
+            newFunction.functionId = int.parse(functionId.toString());
+            await Provider.of<CustomerProvider>(context,listen: false)
+              .updateCustomerFunction(newFunction);
+            return "success";
+          }else{
+            return "error while inserting new customer";
+          }
+          
+        
       } else {
         return "check your network info";
       }

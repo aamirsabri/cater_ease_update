@@ -51,15 +51,16 @@ class DBHelper {
     print("on create called");
   }
 
-  static Future insertCustomer(Customer customer) async {
+  static Future<dynamic> insertCustomer(Customer customer) async {
     Database db = await getDatabase;
-    await db.insert(DB_TABLE_CUSTOMER, customer.toMap());
-    print("recored inserted " + customer.toString());
+    final res = await db.insert(DB_TABLE_CUSTOMER, customer.toMap());
+    print("recored inserted " + customer.toString() + " res " + res.toString());
+    return res;
   }
 
   static Future insertCustomerFunction(CustomerFunction function) async {
     Database db = await getDatabase;
-    await db.insert(DB_TABLE_CUSTOMER, function.toMap());
+    await db.insert(DB_TABLE_CUSTOMER_FUNCTION, function.toMap());
     print("recored inserted " + function.toString());
   }
 }

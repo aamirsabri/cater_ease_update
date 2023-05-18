@@ -44,6 +44,9 @@ class AppStrings {
   static const String menuItem = "મેનુ આઇટમ";
   static const String pastFunction = "પાછલા ફંકસન";
   static const String manageUser = "મેનેજ યુઝર";
+
+  //Gujarati messege snack and easyloading
+  static const String newFunctionCreationSuccess = "નવું ફંક્શન સફળતા પૂર્વક બની ગયું છે. ";
   
   //screen title
   static const String newFunction = "નવો ફંક્શન";
@@ -62,5 +65,6 @@ class AppStrings {
   static const String okButtonLabel = "ઓકે";
   static const String emailLabel = "ઈમેલ";
   static const String newCustomerAdded = "નવા ગ્રાહક સફળતાપૂર્વક એડ થઈ ગયા છે";
-  
+  static const String familyLabel  = "ફેમિલી";
+  static const String celebrationLabel = "ઉજવણી";
 }

@@ -179,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: (){
               Navigator.pushNamed(context, Routes.newFunction);
             },
-            icon: Icon(Icons.plus_one)
+            icon: Icon(Icons.add,size: 35,)
           ),
         ],
         title: Text("Home"),
