@@ -61,14 +61,16 @@ class DBHelper {
 
   static Future insertCustomerFunction(CustomerFunction function) async {
     Database db = await getDatabase;
-    await db.insert(DB_TABLE_CUSTOMER_FUNCTION, function.toMap());
-    print("recored inserted " + function.toString());
+    final res=await db.insert(DB_TABLE_CUSTOMER_FUNCTION, function.toMap());
+    print("recored inserted " + function.toString() + " res " + res.toString());
+    return res;
   }
 
   static Future<Map<String, Customer>> getAllCustomers() async {
     Map<String, Customer> customers = {};
-    Database db = getDatabase;
+    Database db = await getDatabase;
     List<Map<String, dynamic>> results = await db.query(DB_TABLE_CUSTOMER);
+    print("all consumer "  + results.toString());
     for (var result in results) {
       customers[result[DBConstant.CUSTOMER_MOBILE]] = Customer.fromMap(result);
     }

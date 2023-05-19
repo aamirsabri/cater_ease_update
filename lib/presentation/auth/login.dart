@@ -75,135 +75,137 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * .25,
-            color: ColorManager.primary,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    Languages.of(context)?.appName ?? AppStrings.appName,
-                    style: getBoldStyle(
-                        fontColor: ColorManager.secondaryFont,
-                        fontSize: FontSize.extraBigSize),
-                  ),
-                  Text(
-                    Languages.of(context)?.appTag ?? AppStrings.appTag,
-                    style: getBoldStyle(
-                      fontColor: ColorManager.secondaryFont,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * .25,
+              color: ColorManager.primary,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      Languages.of(context)?.appName ?? AppStrings.appName,
+                      style: getBoldStyle(
+                          fontColor: ColorManager.secondaryFont,
+                          fontSize: FontSize.extraBigSize),
                     ),
-                  )
-                ],
+                    Text(
+                      Languages.of(context)?.appTag ?? AppStrings.appTag,
+                      style: getBoldStyle(
+                        fontColor: ColorManager.secondaryFont,
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 80,
-          ),
-          Form(
-            key: _formKey,
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 18, horizontal: 42),
-                child: TextFormField(
-                  controller: _emailController,
-                  validator: (value) {
-                    if (value!.isNotEmpty) {
+            SizedBox(
+              height: 80,
+            ),
+            Form(
+              key: _formKey,
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 42),
+                  child: TextFormField(
+                    controller: _emailController,
+                    validator: (value) {
+                      if (value!.isNotEmpty) {
+                        return null;
+                      }
+                      return "Email must not be empty";
+                    },
+                    decoration: InputDecoration(
+                        labelText: Languages.of(context)?.emailHint ??
+                            AppStrings.emailHint),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 18, horizontal: 42),
+                  child: TextFormField(
+                    obscureText: true,
+                    controller: _passwordConroller,
+                    keyboardType: TextInputType.visiblePassword,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return "Password must not be empty";
+                      }
                       return null;
-                    }
-                    return "Email must not be empty";
-                  },
-                  decoration: InputDecoration(
-                      labelText: Languages.of(context)?.emailHint ??
-                          AppStrings.emailHint),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 18, horizontal: 42),
-                child: TextFormField(
-                  obscureText: true,
-                  controller: _passwordConroller,
-                  keyboardType: TextInputType.visiblePassword,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Password must not be empty";
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                      labelText: Languages.of(context)?.passwordHint ??
-                          AppStrings.passwordHint),
-                ),
-              ),
-              SizedBox(height: AppSize.s20),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 18, horizontal: 42),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize:
-                        Size(MediaQuery.of(context).size.width * 0.8, 50),
-                  ),
-                  onPressed: () async {
-                    await signInUser();
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        Languages.of(context)?.loginLabel ??
-                            AppStrings.loginLabel,
-                        style: getSemiBoldStyle(
-                            fontColor: ColorManager.secondaryFont,
-                            fontSize: FontSize.mediumLargeSize),
-                      ),
-                    ],
+                    },
+                    decoration: InputDecoration(
+                        labelText: Languages.of(context)?.passwordHint ??
+                            AppStrings.passwordHint),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: AppSize.s12,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(AppPadding.p8),
-                    child: Text(
-                      AppStrings.dontHaveAccount,
-                      style: getSemiBoldStyle(
-                          fontColor: ColorManager.primaryFontOpacity70),
+                SizedBox(height: AppSize.s20),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 18, horizontal: 42),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize:
+                          Size(MediaQuery.of(context).size.width * 0.8, 50),
+                    ),
+                    onPressed: () async {
+                      await signInUser();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          Languages.of(context)?.loginLabel ??
+                              AppStrings.loginLabel,
+                          style: getSemiBoldStyle(
+                              fontColor: ColorManager.secondaryFont,
+                              fontSize: FontSize.mediumLargeSize),
+                        ),
+                      ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(AppPadding.p8),
-                    child: TextButton(
-                        onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return RegisterScreen();
-                          }));
-                        },
-                        child: Text(
-                            Languages.of(context)?.registerLabel ??
-                                AppStrings.registerLabel,
-                            style: getBoldStyle(
-                                fontColor: ColorManager.primary,
-                                fontSize: FontSize.mediumLargeSize))),
-                  ),
-                ],
-              ),
-            ]),
-          ),
-        ],
+                ),
+                SizedBox(
+                  height: AppSize.s12,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(AppPadding.p8),
+                      child: Text(
+                        AppStrings.dontHaveAccount,
+                        style: getSemiBoldStyle(
+                            fontColor: ColorManager.primaryFontOpacity70),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(AppPadding.p8),
+                      child: TextButton(
+                          onPressed: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return RegisterScreen();
+                            }));
+                          },
+                          child: Text(
+                              Languages.of(context)?.registerLabel ??
+                                  AppStrings.registerLabel,
+                              style: getBoldStyle(
+                                  fontColor: ColorManager.primary,
+                                  fontSize: FontSize.mediumLargeSize))),
+                    ),
+                  ],
+                ),
+              ]),
+            ),
+          ],
+        ),
       ),
     );
   }

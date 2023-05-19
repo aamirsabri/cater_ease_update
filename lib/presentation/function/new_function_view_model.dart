@@ -113,10 +113,11 @@ class NewFunctionNewViewModel {
     List<String> functionTypes = [];
     try {
       if (await NetworkInfo.isConnected()) {
-        final res = await DBHelper.getAllCustomers();
+        var res = await DBHelper.getAllCustomers();
         EasyLoading.dismiss();
-        print("customrs " + customers.values.toString());
-        return customers.addAll(res);
+        print("customrs " + res.keys.toString());
+       
+        return res;
       } else {
         EasyLoading.showError("check your internet connection");
         return {};

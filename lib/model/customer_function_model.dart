@@ -39,8 +39,8 @@ class CustomerFunction {
       DBConstant.FUNCTION_NAME: functionName,
       DBConstant.CATERER_ID: catererId,
       DBConstant.ADDRESS: address ?? "",
-      DBConstant.FUNCTION_START_DATE: getStringFromDate(startDate!, "YYYY-MM-DD") ?? "",
-      DBConstant.FUNCTION_END_DATE: getStringFromDate(endDate!, "YYYY-MM-DD") ?? ""
+      DBConstant.FUNCTION_START_DATE: getStringFromDate(startDate!, "yyyy-MM-dd") ?? "",
+      DBConstant.FUNCTION_END_DATE: getStringFromDate(endDate!, "yyyy-MM-dd") ?? ""
     };
   }
 

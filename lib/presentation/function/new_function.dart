@@ -3,9 +3,11 @@ import 'package:cater_ease/domain/customer_provider.dart';
 import 'package:cater_ease/model/caterer_model.dart';
 import 'package:cater_ease/presentation/color_manager.dart';
 import 'package:cater_ease/presentation/common/show_snack.dart';
+import 'package:cater_ease/presentation/route_manager.dart';
 import 'package:cater_ease/presentation/string_manager.dart';
 import 'package:cater_ease/presentation/style_manager.dart';
 import 'package:cater_ease/presentation/value_manager.dart';
+import 'package:cater_ease/presentation/widgets/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -25,6 +27,7 @@ class NewFunctionScreen extends StatefulWidget {
 class _NewFunctionScreenState extends State<NewFunctionScreen> {
   CustomerProvider? customerProvider;
   Customer? _customer;
+  Map<String,Customer> _customers = {};
   late String catererId;
   NewFunctionNewViewModel? _newFunctionNewViewModel;
   List<String> mobiles = [];
@@ -39,6 +42,8 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
   TextEditingController _placeController = TextEditingController();
   TextEditingController _familyNameController = TextEditingController();
   TextEditingController _customerEmail = TextEditingController();
+  DateTime? fromDate,toDate;
+
 
   List<String> getSuggesions(String pattern) {
     List<String> result = [];
@@ -57,7 +62,9 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
       _newFunctionNewViewModel = value;
     }).then((value) {
       _newFunctionNewViewModel!.getAllConsumers().then((value) {
+        print(value.toString());
         if (value is Map<String, Customer>) {
+          _customers = value;
           mobiles = List.from(value.keys);
           print(mobiles);
         }
@@ -109,6 +116,20 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
       }
     });
     return result;
+  }
+
+  void populateSelectedCustomerDetail(String selectedMobile){
+    _customer = _customers[selectedMobile];
+    print(_customer.toString());
+    _nameController.text = _customer!.customerName;
+    _placeController.text = _customer!.address??"";
+    _mobileController.text = _customer!.mobile;
+    _familyNameController.text = _customer!.customerName.split(' ').length > 2
+            ? _customer!.customerName.split(' ')[1] + " " + AppStrings.familyLabel
+            : _customer!.customerName.split(' ')[0] + " " + AppStrings.familyLabel;
+    setState(() {
+      
+    });
   }
 
   Future showNewConsumerDialog() async {
@@ -192,6 +213,15 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
             ));
   }
 
+  void updateFromDateCallBack(DateTime selectedDate){
+    
+    fromDate=selectedDate??fromDate;
+  }
+
+  void updateToDateCallBack(DateTime selectedDate){
+    toDate = selectedDate??toDate;
+  }
+
   @override
   Widget build(BuildContext context) {
     _customer = customerProvider!.currentCustomer;
@@ -223,7 +253,7 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(AppPadding.screenPadding),
+          padding: const EdgeInsets.symmetric(vertical:AppPadding.screenPadding,horizontal: AppPadding.screenPadding),
           child: Form(
             key: _formKey,
             child: Column(
@@ -242,6 +272,7 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                   },
                   onSuggestionSelected: (String suggestion) {
                     _searchController.text = suggestion;
+                    populateSelectedCustomerDetail(_searchController.text);
                   },
                   suggestionsCallback: (String pattern) {
                     return getSuggesions(pattern);
@@ -313,7 +344,7 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                     return getFunctionSuggesions(pattern);
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 buidTextFormField(
@@ -324,8 +355,16 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                 buidTextFormField(
                     controller: _familyNameController,
                     label: AppStrings.familyNameLabel),
-                SizedBox(
-                  height: 16,
+                const SizedBox(
+                  height: 10,
+                ),
+                MyDatePicker(AppStrings.fromDateLabel,updateFromDateCallBack),
+                const SizedBox(
+                  height: 10,
+                ),
+                MyDatePicker(AppStrings.toDateLabel,updateToDateCallBack),
+                const SizedBox(
+                  height: 32,
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -337,12 +376,13 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                                   " " +
                                   AppStrings.celebrationLabel,
                               _placeController.text,
-                              DateTime.now(),
-                              DateTime.now());
+                              fromDate,
+                              toDate);
                       EasyLoading.dismiss();
                       if (res.toString() == "success") {
                         showSnack(
                             context, AppStrings.newFunctionCreationSuccess);
+                        Navigator.pushReplacementNamed(context, Routes.newFunctionDetail);
                       } else {
                         print(res.toString());
                         showSnack(context, res.toString());

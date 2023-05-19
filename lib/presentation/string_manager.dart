@@ -67,4 +67,6 @@ class AppStrings {
   static const String newCustomerAdded = "નવા ગ્રાહક સફળતાપૂર્વક એડ થઈ ગયા છે";
   static const String familyLabel  = "ફેમિલી";
   static const String celebrationLabel = "ઉજવણી";
+  static const String fromDateLabel = "ક્યારથી";
+  static const String toDateLabel = "કયા સુધી";
 }

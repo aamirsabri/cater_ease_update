@@ -1,6 +1,7 @@
 import 'package:cater_ease/presentation/auth/login.dart';
 import 'package:cater_ease/presentation/auth/register.dart';
 import 'package:cater_ease/presentation/function/new_function.dart';
+import 'package:cater_ease/presentation/function/new_function_detail.dart';
 import 'package:cater_ease/presentation/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,7 @@ class Routes {
   static const String mainRoute = "/";
   static const String testRoute = "/test";
   static const String newFunction = "/newFunction";
+  static const String newFunctionDetail = "/newFunctionDetail";
   
 }
 
@@ -36,6 +38,9 @@ class RouteGenerator {
       }
       case Routes.newFunction:{
         return MaterialPageRoute(builder: (_) => NewFunctionScreen());
+      }
+      case Routes.newFunctionDetail:{
+        return MaterialPageRoute(builder: (_) => NewFunctionDetailScreen());
       }
 
       default:
