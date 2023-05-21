@@ -65,8 +65,13 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
         print(value.toString());
         if (value is Map<String, Customer>) {
           _customers = value;
-          mobiles = List.from(value.keys);
+          final List<MapEntry<String,Customer>> mapEntries = _customers.entries.toList();
+         mobiles = mapEntries.map((customer) {          
+            return '${customer.key}-${customer.value.toString()}';
+          }).toList();
+         
           print(mobiles);
+         
         }
       });
     });
@@ -118,7 +123,8 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
     return result;
   }
 
-  void populateSelectedCustomerDetail(String selectedMobile){
+  void populateSelectedCustomerDetail(String selectedCustomer){
+    String selectedMobile = selectedCustomer.split("-")[0];
     _customer = _customers[selectedMobile];
     print(_customer.toString());
     _nameController.text = _customer!.customerName;
