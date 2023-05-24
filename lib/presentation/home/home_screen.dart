@@ -1,9 +1,12 @@
 import 'package:cater_ease/app/constants.dart';
+import 'package:cater_ease/app/database/dbhelper.dart';
+import 'package:cater_ease/app/functions.dart';
 import 'package:cater_ease/domain/caterer_provider.dart';
 import 'package:cater_ease/domain/user_provider.dart';
 import 'package:cater_ease/model/caterer_model.dart';
 import 'package:cater_ease/presentation/color_manager.dart';
 import 'package:cater_ease/presentation/font_manager.dart';
+import 'package:cater_ease/presentation/home/home_view_model.dart';
 import 'package:cater_ease/presentation/route_manager.dart';
 import 'package:cater_ease/presentation/style_manager.dart';
 import 'package:cater_ease/presentation/value_manager.dart';
@@ -12,9 +15,12 @@ import 'package:flutter/material.dart';
 import 'package:cater_ease/model/user_model.dart' as user;
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/customer_function_model.dart';
+import '../../model/customer_model.dart';
 import '../string_manager.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,8 +31,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  HomeViewModelController? _homeViewModelController;
   user.User? _user;
   Caterer? _caterer;
+  List<FutureFunctionView> _futureCustomerFunctions = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getHomeViewModel().then((value){
+      _homeViewModelController = value;
+    }).then((value) {
+      EasyLoading.show();
+      _homeViewModelController!.getCustomerFutureFunction().then((result) {
+        EasyLoading.dismiss();
+        if(!result.isEmpty){
+          _futureCustomerFunctions = List<FutureFunctionView>.from(result);
+          setState(() {
+            
+          });
+        }else{
+          print("result is empty");
+        }
+      });
+    });
+
+    
+  }
+
+  Future<HomeViewModelController> getHomeViewModel()async{
+    return HomeViewModelController(context);
+  }
 
   @override
   void didChangeDependencies() async {
@@ -182,9 +217,88 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.add,size: 35,)
           ),
         ],
-        title: Text("Home"),
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(AppStrings.dashboardLabel,style: getRegularStyle(fontColor: ColorManager.secondaryFont,fontSize: FontSize.appBarLabelSize),)),
       ),
-      body: Center(child: Text("Home")),
+      body: Column(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height*0.33,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: ColorManager.primary,
+              
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16,top: 8,bottom: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(AppStrings.futureFunctionLabel,style: getRegularStyle(fontColor: ColorManager.secondaryFont,fontSize: FontSize.appBarLabelSize),),
+                  ),
+                  
+                     SizedBox(
+                      height: MediaQuery.of(context).size.height*0.19,
+                      width: double.infinity,
+                       child: PageView.builder(
+                      
+                        itemCount: _futureCustomerFunctions.length,
+                        controller: PageController(
+                          initialPage: 1,
+                          viewportFraction: 0.90,
+                        ),
+                        itemBuilder: (context,index){
+                        
+                        CustomerFunction customerFunction = _futureCustomerFunctions[index].customerFunction;
+                        Customer customer = _futureCustomerFunctions[index].customer;
+                        return 
+                        Container(
+                          margin: EdgeInsets.only(right: 16),
+                        padding:EdgeInsets.all(16),
+                        
+                        
+                        decoration: BoxDecoration(
+                          color: ColorManager.white,
+                          borderRadius: BorderRadius.circular(AppSize.borderRadius),
+                                
+                        ),
+                         child:Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(customerFunction.familyName,style: getRegularStyle(fontColor: ColorManager.primary,fontSize: FontSize.mediumLargeSize),),
+                                if(customerFunction.startDate!=null)
+                                Text(getStringFromDate(customerFunction.startDate!,"dd-MM-yyyy")!,style: getRegularStyle(fontColor: ColorManager.primary,fontSize: FontSize.mediumSize),),
+                              ],                          
+                            ),
+                            SizedBox(height: 16,),
+                            Text(AppStrings.totalEventsLabel,style: getRegularStyle(fontColor: ColorManager.primary,fontSize: FontSize.mediumSize),),
+                            Text(AppStrings.totalDaysLabel,style: getRegularStyle(fontColor: ColorManager.primary,fontSize: FontSize.mediumSize),),
+                            
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: Text(customer.customerName,style: getRegularStyle(fontColor: ColorManager.primary,fontSize: FontSize.mediumSize),)),
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: Text(customer.mobile,style: getRegularStyle(fontColor: ColorManager.primary,fontSize: FontSize.mediumSize),)),
+                            
+                          ],
+                         ),
+                                         );
+                                         }),
+                     ),
+                  
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

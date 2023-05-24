@@ -44,7 +44,5 @@ class Customer {
     };
   }
 
-  String toString() {
-    return " name - " + customerName + " address - " + address! ?? "";
-  }
+  String toString() => "ID: ${customerId} Name: ${customerName} Address: ${address!} ?? '' Email: ${email} ";
 }

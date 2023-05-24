@@ -1,3 +1,4 @@
+import 'package:cater_ease/app/database/dbhelper.dart';
 import 'package:cater_ease/app/deviceinfo.dart';
 import 'package:cater_ease/app/functions.dart';
 import 'package:cater_ease/network/networkinfo.dart';
@@ -7,6 +8,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+import '../../model/customer_function_model.dart';
+import '../../model/customer_model.dart';
 import '../string_manager.dart';
 
 class HomeViewModelController {
@@ -14,6 +17,29 @@ class HomeViewModelController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   BuildContext context;
   HomeViewModelController(this.context);
+
+  Future<List<FutureFunctionView>> getCustomerFutureFunction()async{
+    List<FutureFunctionView> futureFunctions = [];
+    try{
+      if(!(await NetworkInfo.isConnected())){
+        EasyLoading.dismiss();
+        EasyLoading.showError(AppStrings.errorNotConnected);
+        return [];
+      }
+      final result = await DBHelper.getFutureCustomerFunctions();
+      for(CustomerFunction customerFunction in result){
+        Customer customer = await DBHelper.getCustomerFromId(customerFunction.customerId);
+        FutureFunctionView futureFunctionView = FutureFunctionView(customer, customerFunction);
+        futureFunctions.add(futureFunctionView);
+      }
+      return futureFunctions;
+    }catch(e){
+      print(e.toString());
+      EasyLoading.dismiss();
+      EasyLoading.showError(e.toString());
+      return [];
+    }
+  }
 
   Future<dynamic?> signUpUser(String userName, String email, String password,
       String mobileNo, String catererName, String place) async {
@@ -67,4 +93,12 @@ class HomeViewModelController {
     EasyLoading.dismiss();
     return result;
   }
+
+
+
+}
+class FutureFunctionView {
+  CustomerFunction customerFunction;
+  Customer customer;
+  FutureFunctionView(this.customer,this.customerFunction);
 }

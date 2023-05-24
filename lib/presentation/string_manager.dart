@@ -44,6 +44,10 @@ class AppStrings {
   static const String menuItem = "મેનુ આઇટમ";
   static const String pastFunction = "પાછલા ફંકસન";
   static const String manageUser = "મેનેજ યુઝર";
+  static const String dashboardLabel = "ડેશબોર્ડ";
+  static const String futureFunctionLabel = "આગામી ફંક્શન";
+  static const String todayEventsLabel = "આજની ઇવેન્ટ્સ";
+  static const String lastFunctionsLabel = "છેલ્લા ૩ ફંક્શન";
 
   //Gujarati messege snack and easyloading
   static const String newFunctionCreationSuccess = "નવું ફંક્શન સફળતા પૂર્વક બની ગયું છે. ";
@@ -65,8 +69,15 @@ class AppStrings {
   static const String okButtonLabel = "ઓકે";
   static const String emailLabel = "ઈમેલ";
   static const String newCustomerAdded = "નવા ગ્રાહક સફળતાપૂર્વક એડ થઈ ગયા છે";
-  static const String familyLabel  = "ફેમિલી";
+  static const String familyLabel  = "પરિવાર";
   static const String celebrationLabel = "ઉજવણી";
   static const String fromDateLabel = "ક્યારથી";
   static const String toDateLabel = "કયા સુધી";
+  static const String totalEventsLabel = "ટોટલ ઇવેન્ટ્સ - ";
+  static const String totalDaysLabel = "ટોટલ દિવસ - ";
+
+
+
+  //errror messege
+  static const String errorNotConnected = "Please check your internet connection";
 }

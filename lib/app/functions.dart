@@ -40,6 +40,11 @@ getDateFromString(String date, String format) {
       newDate.year, newDate.month, newDate.day, newDate.hour, newDate.minute);
 }
 
+getDDMMYYY(String date,String sourceFormat,String destFormat){
+  DateTime newDate = new DateFormat(sourceFormat).parse(date);
+  return getStringFromDate(newDate, "dd-MM-yyyy");
+}
+
 String calculateHours(DateTime start, DateTime end) {
   Duration d = end.difference(start);
   print(start.toString());

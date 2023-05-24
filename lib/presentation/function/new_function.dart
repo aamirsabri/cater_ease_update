@@ -76,6 +76,7 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
       });
     });
     super.initState();
+    _functionName.text = "લગ્ન";
   }
 
   Future<NewFunctionNewViewModel> getNewFunctionViewModel() async {
@@ -126,6 +127,11 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
   void populateSelectedCustomerDetail(String selectedCustomer){
     String selectedMobile = selectedCustomer.split("-")[0];
     _customer = _customers[selectedMobile];
+    print("customer id " + _customer!.customerId.toString());
+    if(_customer!= null){
+      customerProvider!.updateCustomer(_customer!);
+    }
+    
     print(_customer.toString());
     _nameController.text = _customer!.customerName;
     _placeController.text = _customer!.address??"";
@@ -139,6 +145,10 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
   }
 
   Future showNewConsumerDialog() async {
+    TextEditingController _newCustomernameController = TextEditingController();
+    TextEditingController _newCustomerMobile = TextEditingController();
+    TextEditingController _newCustomerAddress = TextEditingController();
+    TextEditingController _newCustomerEmail = TextEditingController();
     final _customerFormKey = GlobalKey<FormState>();
     await showDialog(
         context: context,
@@ -169,16 +179,16 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                         height: 20,
                       ),
                       buidTextFormField(
-                          controller: _nameController,
+                          controller: _newCustomernameController,
                           label: AppStrings.customerNameLabel + "*"),
                       buidTextFormField(
-                          controller: _customerMobile,
+                          controller: _newCustomerMobile,
                           label: AppStrings.mobileNoLabel),
                       buidTextFormField(
-                          controller: _customerEmail,
+                          controller: _newCustomerEmail,
                           label: AppStrings.emailLabel),
                       buidTextFormField(
-                          controller: _customerAddress,
+                          controller: _newCustomerAddress,
                           label: AppStrings.addressLabel),
                     ],
                   ),
@@ -190,10 +200,10 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                     if (_customerFormKey.currentState?.validate() ?? false) {
                       final res = await _newFunctionNewViewModel!
                           .saveNewCustomer(
-                              _nameController.text,
-                              _customerEmail.text,
-                              _customerMobile.text,
-                              _customerAddress.text);
+                              _newCustomernameController.text,
+                              _newCustomerEmail.text,
+                              _newCustomerMobile.text,
+                              _newCustomerAddress.text);
                       EasyLoading.dismiss();
                       if (res == "success") {
                         Navigator.pop(context);
@@ -233,16 +243,16 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
     _customer = customerProvider!.currentCustomer;
     if (_customer != null) {
       _nameController.text = _customer!.customerName;
-      if (_placeController.text == "") {
+      if (_placeController.text == "" || _placeController.text != _customer!.address!) {
         _placeController.text = _customer!.address!;
       }
-      if (_mobileController.text == "")
+      if (_mobileController.text == "" || _mobileController.text != _customer!.mobile)
         _mobileController.text = _customer!.mobile;
-      if (_familyNameController.text == "") {
+     
         _familyNameController.text = _nameController.text.split(' ').length > 2
             ? _nameController.text.split(' ')[1] + " " + AppStrings.familyLabel
             : _nameController.text.split(' ')[0] + " " + AppStrings.familyLabel;
-      }
+      
     }
     return Scaffold(
       appBar: AppBar(
@@ -374,16 +384,19 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
+                    print("_customer id " + _customer.toString());
+                    print("family name "+ _familyNameController.text);
                     if (_formKey.currentState?.validate() ?? false) {
                       final res = await _newFunctionNewViewModel!
                           .saveNewFunction(
                               _customer!.customerId!,
                               _functionName.text +
-                                  " " +
+                                  "ની " +
                                   AppStrings.celebrationLabel,
                               _placeController.text,
                               fromDate,
-                              toDate);
+                              toDate,
+                              _familyNameController.text);
                       EasyLoading.dismiss();
                       if (res.toString() == "success") {
                         showSnack(

@@ -28,6 +28,7 @@ class FontSize {
   static const double extraSmallSize = 8.0;
   static const double mediumLargeSize = 18.0;
   static const double appBarLabelSize = 20.0;
+  static const double functionNameSize = 20.0;
   static const double bigSize = 24.0;
   static const double buttonFontSize = 16.0;
   static const double drowerListItemFontSize = 18.0;

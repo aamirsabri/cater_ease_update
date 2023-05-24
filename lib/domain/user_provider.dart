@@ -7,6 +7,7 @@ class UserDetailProvider with ChangeNotifier {
    User? _user;
   User? get user => _user;
  
+  
   updateUser(User user) {
     _user = user;
     notifyListeners();

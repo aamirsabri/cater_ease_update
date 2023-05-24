@@ -88,6 +88,9 @@ class DBConstant{
   static const String FUNCTION_ID = "FUNCTION_ID";
   static const String FUNCTION_START_DATE= "START_DATE";
   static const String FUNCTION_END_DATE= "END_DATE";
+  static const String FUNCTION_FAMILY_NAME = "FAMILY_NAME";
+
+
 }
 
 enum SELECTED_LEAVE_TYPE { FULL_DAY, FIRST_HALF, SECOND_HALF }

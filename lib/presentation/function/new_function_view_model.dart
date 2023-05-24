@@ -48,7 +48,8 @@ class NewFunctionNewViewModel {
   }
 
   Future<String> saveNewFunction(int customerId, String functionName,
-      String? address, DateTime? startDate, DateTime? endDate) async {
+      String? address, DateTime? startDate, DateTime? endDate,String familyName) async {
+        print("${customerId} ${functionName} ${address} ${startDate.toString()} ${endDate.toString()} ${familyName}");
     EasyLoading.show();
     String result = "something went wrong";
     try {
@@ -60,9 +61,10 @@ class NewFunctionNewViewModel {
             catererId: catererId,
             customerId: customerId,
             functionName: functionName,
+            
             address: address,
             startDate: startDate,
-            endDate: endDate);
+            endDate: endDate, familyName: familyName);
         print(newFunction.toMap().toString());
 
         final functionId = await DBHelper.insertCustomerFunction(newFunction);
@@ -78,6 +80,7 @@ class NewFunctionNewViewModel {
         return "check your network info";
       }
     } catch (e) {
+      print("error");
       return e.toString();
     }
   }

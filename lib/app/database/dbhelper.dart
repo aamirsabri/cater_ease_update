@@ -26,6 +26,8 @@ class DBHelper {
     return await openDatabase(path, version: version, onCreate: _onCreate);
   }
 
+  
+
   static Future _onCreate(Database db, int version) async {
     db.execute('''
         CREATE TABLE CUSTOMER(
@@ -44,12 +46,31 @@ class DBHelper {
           FUNCTION_NAME TEXT,
           ADDRESS TEXT,
           FAMILY_NAME TEXT,
-          FUNCTION_TYPE,
+          FUNCTION_TYPE TEXT,
           START_DATE TEXT,
           END_DATE TEXT         
         );
     ''');
     print("on create called");
+  }
+
+  static Future<List<CustomerFunction>> getFutureCustomerFunctions() async{
+    List<CustomerFunction> functions = [];
+    Database db = await getDatabase;
+    List<Map<String,dynamic>> results = await db.rawQuery("SELECT * FROM " + DB_TABLE_CUSTOMER_FUNCTION);
+    for(var result in results){
+      print(result.toString());
+      functions.add(CustomerFunction.fromMap(result));
+    }
+
+    return functions;
+  }
+
+  static Future<Customer> getCustomerFromId(int customerId) async{
+    Database db = await getDatabase;
+    List<Map<String,dynamic>> result = await db.rawQuery("SELECT * FROM " + DB_TABLE_CUSTOMER + " WHERE " + DBConstant.CUSTOMER_ID + "=" + customerId.toString());
+    
+    return Customer.fromMap(result[0]);
   }
 
   static Future<dynamic> insertCustomer(Customer customer) async {
