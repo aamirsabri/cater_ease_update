@@ -9,7 +9,7 @@ class CustomerFunction {
   int customerId;
   String? address;
   String familyName;
-  DateTime? startDate;
+  DateTime startDate;
   DateTime? endDate;
 
   CustomerFunction(
@@ -19,7 +19,7 @@ class CustomerFunction {
       required this.catererId,
       this.address,
       required this.familyName,
-      this.startDate,
+      required this.startDate,
       this.endDate});
 
   factory CustomerFunction.fromFirestore(
@@ -37,30 +37,39 @@ class CustomerFunction {
   }
 
   Map<String, dynamic> toMap() {
+    print("start date " + getStringFromDate(startDate, "yyyy-MM-dd hh:mm:ss")!);
     return {
       DBConstant.CUSTOMER_ID: customerId,
       DBConstant.FUNCTION_NAME: functionName,
       DBConstant.CATERER_ID: catererId,
       DBConstant.ADDRESS: address ?? "",
-      DBConstant.FUNCTION_FAMILY_NAME: familyName??"",
-      DBConstant.FUNCTION_START_DATE: (startDate!=null?getStringFromDate(startDate!, "yyyy-MM-dd hh:mm:ss")!:""),
-      DBConstant.FUNCTION_END_DATE: (endDate!=null?getStringFromDate(endDate!, "yyyy-MM-dd hh:mm:ss")!:"")
+      DBConstant.FUNCTION_FAMILY_NAME: familyName ?? "",
+      DBConstant.FUNCTION_START_DATE: (startDate != null
+          ? getStringFromDate(startDate, "yyyy-MM-dd hh:mm:ss")
+          : ""),
+      DBConstant.FUNCTION_END_DATE: (endDate != null
+          ? getStringFromDate(endDate!, "yyyy-MM-dd hh:mm:ss")!
+          : "")
     };
   }
 
   factory CustomerFunction.fromMap(Map<String, dynamic>? data) {
     return CustomerFunction(
-        customerId: data?[DBConstant.CUSTOMER_ID],
-        functionName: data?[DBConstant.FUNCTION_NAME],
-        address: data?[DBConstant.ADDRESS] ?? "",
-        functionId: data?[DBConstant.FUNCTION_ID],
-        catererId: data?[DBConstant.CATERER_ID],
-        familyName: data?[DBConstant.FUNCTION_FAMILY_NAME]??"",
-        startDate: (data?[DBConstant.FUNCTION_START_DATE]!="")?data![DBConstant.FUNCTION_START_DATE]:null,
-        endDate: (data?[DBConstant.FUNCTION_END_DATE]!="")?data![DBConstant.FUNCTION_END_DATE]:null,
-        
-        );
-
+      customerId: data?[DBConstant.CUSTOMER_ID],
+      functionName: data?[DBConstant.FUNCTION_NAME],
+      address: data?[DBConstant.ADDRESS] ?? "",
+      functionId: data?[DBConstant.FUNCTION_ID],
+      catererId: data?[DBConstant.CATERER_ID],
+      familyName: data?[DBConstant.FUNCTION_FAMILY_NAME] ?? "",
+      startDate: (data?[DBConstant.FUNCTION_START_DATE] != "")
+          ? getDateFromString(
+              data![DBConstant.FUNCTION_START_DATE], "yyyy-MM-dd hh:mm:ss")
+          : null,
+      endDate: (data?[DBConstant.FUNCTION_END_DATE] != "")
+          ? getDateFromString(
+              data![DBConstant.FUNCTION_END_DATE], "yyyy-MM-dd hh:mm:ss")
+          : null,
+    );
   }
 
   String toString() {

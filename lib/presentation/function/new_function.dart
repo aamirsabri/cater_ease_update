@@ -27,7 +27,7 @@ class NewFunctionScreen extends StatefulWidget {
 class _NewFunctionScreenState extends State<NewFunctionScreen> {
   CustomerProvider? customerProvider;
   Customer? _customer;
-  Map<String,Customer> _customers = {};
+  Map<String, Customer> _customers = {};
   late String catererId;
   NewFunctionNewViewModel? _newFunctionNewViewModel;
   List<String> mobiles = [];
@@ -42,8 +42,8 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
   TextEditingController _placeController = TextEditingController();
   TextEditingController _familyNameController = TextEditingController();
   TextEditingController _customerEmail = TextEditingController();
-  DateTime? fromDate,toDate;
-
+  late DateTime fromDate;
+  DateTime? toDate;
 
   List<String> getSuggesions(String pattern) {
     List<String> result = [];
@@ -65,13 +65,13 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
         print(value.toString());
         if (value is Map<String, Customer>) {
           _customers = value;
-          final List<MapEntry<String,Customer>> mapEntries = _customers.entries.toList();
-         mobiles = mapEntries.map((customer) {          
+          final List<MapEntry<String, Customer>> mapEntries =
+              _customers.entries.toList();
+          mobiles = mapEntries.map((customer) {
             return '${customer.key}-${customer.value.toString()}';
           }).toList();
-         
+
           print(mobiles);
-         
         }
       });
     });
@@ -124,24 +124,22 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
     return result;
   }
 
-  void populateSelectedCustomerDetail(String selectedCustomer){
+  void populateSelectedCustomerDetail(String selectedCustomer) {
     String selectedMobile = selectedCustomer.split("-")[0];
     _customer = _customers[selectedMobile];
     print("customer id " + _customer!.customerId.toString());
-    if(_customer!= null){
+    if (_customer != null) {
       customerProvider!.updateCustomer(_customer!);
     }
-    
+
     print(_customer.toString());
     _nameController.text = _customer!.customerName;
-    _placeController.text = _customer!.address??"";
+    _placeController.text = _customer!.address ?? "";
     _mobileController.text = _customer!.mobile;
     _familyNameController.text = _customer!.customerName.split(' ').length > 2
-            ? _customer!.customerName.split(' ')[1] + " " + AppStrings.familyLabel
-            : _customer!.customerName.split(' ')[0] + " " + AppStrings.familyLabel;
-    setState(() {
-      
-    });
+        ? _customer!.customerName.split(' ')[1] + " " + AppStrings.familyLabel
+        : _customer!.customerName.split(' ')[0] + " " + AppStrings.familyLabel;
+    setState(() {});
   }
 
   Future showNewConsumerDialog() async {
@@ -229,13 +227,12 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
             ));
   }
 
-  void updateFromDateCallBack(DateTime selectedDate){
-    
-    fromDate=selectedDate??fromDate;
+  void updateFromDateCallBack(DateTime selectedDate) {
+    fromDate = selectedDate ?? fromDate;
   }
 
-  void updateToDateCallBack(DateTime selectedDate){
-    toDate = selectedDate??toDate;
+  void updateToDateCallBack(DateTime selectedDate) {
+    toDate = selectedDate ?? toDate;
   }
 
   @override
@@ -243,16 +240,17 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
     _customer = customerProvider!.currentCustomer;
     if (_customer != null) {
       _nameController.text = _customer!.customerName;
-      if (_placeController.text == "" || _placeController.text != _customer!.address!) {
+      if (_placeController.text == "" ||
+          _placeController.text != _customer!.address!) {
         _placeController.text = _customer!.address!;
       }
-      if (_mobileController.text == "" || _mobileController.text != _customer!.mobile)
+      if (_mobileController.text == "" ||
+          _mobileController.text != _customer!.mobile)
         _mobileController.text = _customer!.mobile;
-     
-        _familyNameController.text = _nameController.text.split(' ').length > 2
-            ? _nameController.text.split(' ')[1] + " " + AppStrings.familyLabel
-            : _nameController.text.split(' ')[0] + " " + AppStrings.familyLabel;
-      
+
+      _familyNameController.text = _nameController.text.split(' ').length > 2
+          ? _nameController.text.split(' ')[1] + " " + AppStrings.familyLabel
+          : _nameController.text.split(' ')[0] + " " + AppStrings.familyLabel;
     }
     return Scaffold(
       appBar: AppBar(
@@ -269,7 +267,9 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical:AppPadding.screenPadding,horizontal: AppPadding.screenPadding),
+          padding: const EdgeInsets.symmetric(
+              vertical: AppPadding.screenPadding,
+              horizontal: AppPadding.screenPadding),
           child: Form(
             key: _formKey,
             child: Column(
@@ -374,18 +374,18 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                 const SizedBox(
                   height: 10,
                 ),
-                MyDatePicker(AppStrings.fromDateLabel,updateFromDateCallBack),
+                MyDatePicker(AppStrings.fromDateLabel, updateFromDateCallBack),
                 const SizedBox(
                   height: 10,
                 ),
-                MyDatePicker(AppStrings.toDateLabel,updateToDateCallBack),
+                MyDatePicker(AppStrings.toDateLabel, updateToDateCallBack),
                 const SizedBox(
                   height: 32,
                 ),
                 ElevatedButton(
                   onPressed: () async {
                     print("_customer id " + _customer.toString());
-                    print("family name "+ _familyNameController.text);
+                    print("family name " + _familyNameController.text);
                     if (_formKey.currentState?.validate() ?? false) {
                       final res = await _newFunctionNewViewModel!
                           .saveNewFunction(
@@ -401,7 +401,8 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                       if (res.toString() == "success") {
                         showSnack(
                             context, AppStrings.newFunctionCreationSuccess);
-                        Navigator.pushReplacementNamed(context, Routes.newFunctionDetail);
+                        Navigator.pushReplacementNamed(
+                            context, Routes.newFunctionDetail);
                       } else {
                         print(res.toString());
                         showSnack(context, res.toString());
