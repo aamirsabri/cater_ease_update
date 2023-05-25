@@ -90,6 +90,12 @@ class DBConstant{
   static const String FUNCTION_END_DATE= "END_DATE";
   static const String FUNCTION_FAMILY_NAME = "FAMILY_NAME";
 
+  static const String EVENT_DESCRIPTION = "EVENT_DESCRIPTION";
+  static const String EVENT_ICON = "EVENT_ICON";
+  static const String EVENT_MASTER_ID = "EVENT_MASTER_ID";
+  static const String EVENT_NAME = "EVENT_NAME";
+
+
 
 }
 
@@ -147,6 +153,8 @@ const String COL_MSG = "msg";
 const String COL_USER_ID = "userId";
 const String COL_USER_NAME = "userName";
 const String COL_PASSWORD = "password";
+
+
 
 abstract class SharedPreferencesKeys {
   static const String PREF_KEY_EMP_ID = "PREF_KEY_EMP_ID";
