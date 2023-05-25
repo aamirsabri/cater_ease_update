@@ -69,7 +69,7 @@ class Constant {
   static const String testGetLocations = "/rdss/getLocationsByLocation";
 }
 
-class DBConstant{
+class DBConstant {
   static const String CUSTOMER_ID = "CUSTOMER_ID";
   static const String CUSTOMER_NAME = "CUSTOMER_NAME";
   static const String ADDRESS = "ADDRESS";
@@ -86,8 +86,8 @@ class DBConstant{
 
   static const String FUNCTION_NAME = "FUNCTION_NAME";
   static const String FUNCTION_ID = "FUNCTION_ID";
-  static const String FUNCTION_START_DATE= "START_DATE";
-  static const String FUNCTION_END_DATE= "END_DATE";
+  static const String FUNCTION_START_DATE = "START_DATE";
+  static const String FUNCTION_END_DATE = "END_DATE";
   static const String FUNCTION_FAMILY_NAME = "FAMILY_NAME";
 
   static const String EVENT_DESCRIPTION = "EVENT_DESCRIPTION";
@@ -95,8 +95,10 @@ class DBConstant{
   static const String EVENT_MASTER_ID = "EVENT_MASTER_ID";
   static const String EVENT_NAME = "EVENT_NAME";
 
-
-
+  static const String CUSTOMER_EVENT_ID = "EVENT_ID";
+  static const String EVENT_DATE = "EVENT_DATE";
+  static const String EVENT_PLACE = "EVENT_PLACE";
+  static const String IS_VIP_MENU = "IS_VIP_MENU";
 }
 
 enum SELECTED_LEAVE_TYPE { FULL_DAY, FIRST_HALF, SECOND_HALF }
@@ -153,8 +155,6 @@ const String COL_MSG = "msg";
 const String COL_USER_ID = "userId";
 const String COL_USER_NAME = "userName";
 const String COL_PASSWORD = "password";
-
-
 
 abstract class SharedPreferencesKeys {
   static const String PREF_KEY_EMP_ID = "PREF_KEY_EMP_ID";
