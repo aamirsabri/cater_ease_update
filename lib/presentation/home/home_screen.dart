@@ -1,3 +1,4 @@
+import 'package:cater_ease/app/app_pref.dart';
 import 'package:cater_ease/app/constants.dart';
 import 'package:cater_ease/app/database/dbhelper.dart';
 import 'package:cater_ease/app/functions.dart';
@@ -6,6 +7,7 @@ import 'package:cater_ease/domain/user_provider.dart';
 import 'package:cater_ease/model/caterer_model.dart';
 import 'package:cater_ease/presentation/color_manager.dart';
 import 'package:cater_ease/presentation/font_manager.dart';
+import 'package:cater_ease/presentation/function/new_function_detail.dart';
 import 'package:cater_ease/presentation/home/home_view_model.dart';
 import 'package:cater_ease/presentation/route_manager.dart';
 import 'package:cater_ease/presentation/style_manager.dart';
@@ -259,70 +261,81 @@ class _HomeScreenState extends State<HomeScreen> {
                               _futureCustomerFunctions[index].customerFunction;
                           Customer customer =
                               _futureCustomerFunctions[index].customer;
-                          return Container(
-                            margin: EdgeInsets.only(right: 16),
-                            padding: EdgeInsets.all(16),
-                            decoration: BoxDecoration(
-                              color: ColorManager.white,
-                              borderRadius:
-                                  BorderRadius.circular(AppSize.borderRadius),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      customerFunction.familyName,
-                                      style: getRegularStyle(
-                                          fontColor: ColorManager.primary,
-                                          fontSize: FontSize.mediumLargeSize),
-                                    ),
-                                    if (customerFunction.startDate != null)
+                          return GestureDetector(
+                            onTap: (){
+
+                              Navigator.push(context, MaterialPageRoute(builder: (_){
+                                return NewFunctionDetailScreen();
+                              },settings: RouteSettings(arguments: {                           
+                                  DBConstant.CUSTOMER_ID:customerFunction.customerId,
+                                  DBConstant.FUNCTION_ID:customerFunction.functionId
+                          }),));
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(right: 16),
+                              padding: EdgeInsets.all(16),
+                              decoration: BoxDecoration(
+                                color: ColorManager.white,
+                                borderRadius:
+                                    BorderRadius.circular(AppSize.borderRadius),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
                                       Text(
-                                        getStringFromDate(
-                                            customerFunction.startDate!,
-                                            "dd-MM-yyyy")!,
+                                        customerFunction.familyName,
+                                        style: getRegularStyle(
+                                            fontColor: ColorManager.primary,
+                                            fontSize: FontSize.mediumLargeSize),
+                                      ),
+                                      if (customerFunction.startDate != null)
+                                        Text(
+                                          getStringFromDate(
+                                              customerFunction.startDate!,
+                                              "dd-MM-yyyy")!,
+                                          style: getRegularStyle(
+                                              fontColor: ColorManager.primary,
+                                              fontSize: FontSize.mediumSize),
+                                        ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 16,
+                                  ),
+                                  Text(
+                                    AppStrings.totalEventsLabel,
+                                    style: getRegularStyle(
+                                        fontColor: ColorManager.primary,
+                                        fontSize: FontSize.mediumSize),
+                                  ),
+                                  Text(
+                                    AppStrings.totalDaysLabel,
+                                    style: getRegularStyle(
+                                        fontColor: ColorManager.primary,
+                                        fontSize: FontSize.mediumSize),
+                                  ),
+                                  Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: Text(
+                                        customer.customerName,
                                         style: getRegularStyle(
                                             fontColor: ColorManager.primary,
                                             fontSize: FontSize.mediumSize),
-                                      ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 16,
-                                ),
-                                Text(
-                                  AppStrings.totalEventsLabel,
-                                  style: getRegularStyle(
-                                      fontColor: ColorManager.primary,
-                                      fontSize: FontSize.mediumSize),
-                                ),
-                                Text(
-                                  AppStrings.totalDaysLabel,
-                                  style: getRegularStyle(
-                                      fontColor: ColorManager.primary,
-                                      fontSize: FontSize.mediumSize),
-                                ),
-                                Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Text(
-                                      customer.customerName,
-                                      style: getRegularStyle(
-                                          fontColor: ColorManager.primary,
-                                          fontSize: FontSize.mediumSize),
-                                    )),
-                                Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Text(
-                                      customer.mobile,
-                                      style: getRegularStyle(
-                                          fontColor: ColorManager.primary,
-                                          fontSize: FontSize.mediumSize),
-                                    )),
-                              ],
+                                      )),
+                                  Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: Text(
+                                        customer.mobile,
+                                        style: getRegularStyle(
+                                            fontColor: ColorManager.primary,
+                                            fontSize: FontSize.mediumSize),
+                                      )),
+                                ],
+                              ),
                             ),
                           );
                         }),

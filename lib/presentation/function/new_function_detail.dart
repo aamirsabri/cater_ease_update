@@ -1,15 +1,20 @@
+import 'package:cater_ease/app/constants.dart';
 import 'package:cater_ease/domain/customer_provider.dart';
 import 'package:cater_ease/model/customer_function_model.dart';
+import 'package:cater_ease/presentation/event/event_selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/customer_model.dart';
 import '../color_manager.dart';
 import '../font_manager.dart';
+import '../route_manager.dart';
 import '../string_manager.dart';
 import '../style_manager.dart';
+import 'new_function_detail_view_model.dart';
 
 class NewFunctionDetailScreen extends StatefulWidget {
   const NewFunctionDetailScreen({super.key});
@@ -19,22 +24,74 @@ class NewFunctionDetailScreen extends StatefulWidget {
 }
 
 class _NewFunctionDetailScreenState extends State<NewFunctionDetailScreen> {
+  bool _isLoading = false;
   late CustomerProvider customerProvider;
   Customer? currentCustomer;
   CustomerFunction? customerFunction;
+  late int customerId;
+  late int functionId;
+  late NewFunctionDetailViewModel _functionDetailViewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    _isLoading = true;
+    EasyLoading.show();
+    getNewFunctionViewModel().then((value) {
+      _functionDetailViewModel = value;
+      _functionDetailViewModel.loadData().then((_){
+      _isLoading = false;
+      EasyLoading.dismiss();
+      
+      }).then((value) {
+       
+      });
+    });
+  }
+
+  // Future<void> loadData()async{
+  //   final data = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+  //   customerId = data[DBConstant.CUSTOMER_ID];
+  //   functionId = data[DBConstant.FUNCTION_ID];
+  //   Provider.of<CustomerProvider>(context).loadFunction(customerId,functionId).then((function) {
+  //     customerFunction = function;
+  //   });
+  // }
+
+  Future<NewFunctionDetailViewModel> getNewFunctionViewModel() async {
+    return NewFunctionDetailViewModel(context);
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     customerProvider = Provider.of<CustomerProvider>(context);
+  // loadData().whenComplete(() {
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   });
     currentCustomer = customerProvider.currentCustomer;
-    customerFunction = customerProvider.customerFunction;
+    customerFunction = customerProvider.currentFunction;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return _isLoading?Center(child: CircularProgressIndicator(),):
+    Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,MaterialPageRoute(builder: (_) {
+                  return EventSelectionScreen();
+                }));
+              },
+              icon: Icon(
+                Icons.add,
+                size: 35,
+              )),
+        ],
         backgroundColor: ColorManager.primary,
         iconTheme: IconThemeData(color: ColorManager.secondaryFont),
         title: Align(

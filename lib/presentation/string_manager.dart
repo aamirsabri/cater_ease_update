@@ -48,6 +48,7 @@ class AppStrings {
   static const String futureFunctionLabel = "આગામી ફંક્શન";
   static const String todayEventsLabel = "આજની ઇવેન્ટ્સ";
   static const String lastFunctionsLabel = "છેલ્લા ૩ ફંક્શન";
+  static const String appBar_eventSection = "ઈવેન્ટ પસંદ કરો";
 
   //Gujarati messege snack and easyloading
   static const String newFunctionCreationSuccess = "નવું ફંક્શન સફળતા પૂર્વક બની ગયું છે. ";

@@ -39,7 +39,7 @@ class CustomerEvent {
       DBConstant.CATERER_ID: catererId,
       DBConstant.EVENT_MASTER_ID: eventMasterId,
       DBConstant.CUSTOMER_EVENT_ID: eventId,
-      DBConstant.FUNCTION_ID:functionId
+      DBConstant.FUNCTION_ID:functionId,
       DBConstant.EVENT_DATE: eventDate ?? '',
       DBConstant.EVENT_PLACE: place ?? '',
       DBConstant.IS_VIP_MENU: isVipMenu ?? false
@@ -49,21 +49,27 @@ class CustomerEvent {
   factory CustomerEvent.fromMap(Map<String, dynamic>? data) {
     return CustomerEvent(
         catererId: data?[DBConstant.CATERER_ID],
-        eventMasterId: data?[DBConstant.EVENT_MASTER_ID],
-        eventName: data?[DBConstant.EVENT_NAME],
-        eventDescription: data?[DBConstant.EVENT_DESCRIPTION] ?? "",
-        icon: data?[DBConstant.EVENT_ICON] ?? "");
+        eventMasterId: data?[DBConstant.EVENT_MASTER_ID], 
+        functionId: data?[DBConstant.FUNCTION_ID] ,
+        eventId: data?[DBConstant.CUSTOMER_EVENT_ID],      
+        eventDate: data?[DBConstant.EVENT_DATE] ?? null,
+        place: data?[DBConstant.EVENT_PLACE] ?? "",
+        isVipMenu: data?[DBConstant.IS_VIP_MENU] ?? false);
   }
   Map<String, dynamic> toMap() {
     return {
       DBConstant.EVENT_MASTER_ID: eventMasterId,
       DBConstant.CATERER_ID: catererId,
-      DBConstant.EVENT_NAME: eventName,
-      DBConstant.EVENT_DESCRIPTION: eventDescription ?? "",
-      DBConstant.EVENT_ICON: icon
+      DBConstant.CUSTOMER_EVENT_ID: eventId,
+      DBConstant.FUNCTION_ID: functionId,
+      DBConstant.EVENT_DATE: eventDate ?? "",
+      DBConstant.EVENT_PLACE: place?? "",
+      DBConstant.IS_VIP_MENU: isVipMenu ?? false
     };
   }
 
-  String toString() =>
-      "ID: ${eventMasterId} Event Name: ${eventName} Description: ${eventDescription!} ?? '' Cat Id: ${catererId} ";
+  @override
+  String toString() {
+    return "ID: ${eventId} eventMasterid: ${eventMasterId} functionId: ${functionId}!} ?? '' Cat Id: ${catererId} Event Place: ${place} EventDate: ${eventDate.toString()} ";
+  }
 }
