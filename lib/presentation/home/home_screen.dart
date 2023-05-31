@@ -3,6 +3,7 @@ import 'package:cater_ease/app/constants.dart';
 import 'package:cater_ease/app/database/dbhelper.dart';
 import 'package:cater_ease/app/functions.dart';
 import 'package:cater_ease/domain/caterer_provider.dart';
+import 'package:cater_ease/domain/customer_provider.dart';
 import 'package:cater_ease/domain/user_provider.dart';
 import 'package:cater_ease/model/caterer_model.dart';
 import 'package:cater_ease/presentation/color_manager.dart';
@@ -209,6 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: () {
+                Provider.of<CustomerProvider>(context,listen: false).resetCustomerProvider();
                 Navigator.pushNamed(context, Routes.newFunction);
               },
               icon: Icon(

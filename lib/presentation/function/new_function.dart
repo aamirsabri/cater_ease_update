@@ -3,6 +3,7 @@ import 'package:cater_ease/domain/customer_provider.dart';
 import 'package:cater_ease/model/caterer_model.dart';
 import 'package:cater_ease/presentation/color_manager.dart';
 import 'package:cater_ease/presentation/common/show_snack.dart';
+import 'package:cater_ease/presentation/function/new_function_detail.dart';
 import 'package:cater_ease/presentation/route_manager.dart';
 import 'package:cater_ease/presentation/string_manager.dart';
 import 'package:cater_ease/presentation/style_manager.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/constants.dart';
 import '../../model/customer_model.dart';
 import '../font_manager.dart';
 import 'new_function_view_model.dart';
@@ -42,7 +44,7 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
   TextEditingController _placeController = TextEditingController();
   TextEditingController _familyNameController = TextEditingController();
   TextEditingController _customerEmail = TextEditingController();
-  late DateTime fromDate;
+  DateTime? fromDate;
   DateTime? toDate;
 
   List<String> getSuggesions(String pattern) {
@@ -57,6 +59,7 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
 
   @override
   void initState() {
+    clearData();
     // TODO: implement initState
     getNewFunctionViewModel().then((value) {
       _newFunctionNewViewModel = value;
@@ -227,12 +230,49 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
             ));
   }
 
+  bool isValid() {
+    if (_formKey.currentState!.validate()) {
+      print("valid in is valid");
+      print(
+          "from date " + fromDate.toString() + " to date " + toDate.toString());
+      if (fromDate == null || toDate == null) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+    return false;
+  }
+
   void updateFromDateCallBack(DateTime selectedDate) {
-    fromDate = selectedDate ?? fromDate;
+    fromDate = selectedDate;
   }
 
   void updateToDateCallBack(DateTime selectedDate) {
-    toDate = selectedDate ?? toDate;
+    toDate = selectedDate;
+  }
+
+  void clearData() {
+    TextEditingController _customerAddress = TextEditingController();
+    TextEditingController _customerMobile = TextEditingController();
+    TextEditingController _searchController = TextEditingController();
+    TextEditingController _nameController = TextEditingController();
+    TextEditingController _functionName = TextEditingController();
+    TextEditingController _mobileController = TextEditingController();
+    TextEditingController _placeController = TextEditingController();
+    TextEditingController _familyNameController = TextEditingController();
+    TextEditingController _customerEmail = TextEditingController();
+    _customerAddress.clear();
+    _customerMobile.clear();
+    _searchController.clear();
+    _nameController.clear();
+    _functionName.clear();
+    _mobileController.clear();
+    _placeController.clear();
+    _familyNameController.clear();
+    _customerEmail.clear();
   }
 
   @override
@@ -386,26 +426,38 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                   onPressed: () async {
                     print("_customer id " + _customer.toString());
                     print("family name " + _familyNameController.text);
-                    if (_formKey.currentState?.validate() ?? false) {
-                      final res =
-                          await _newFunctionNewViewModel!.saveNewFunction(
-                        _customer!.customerId!,
-                        _functionName.text +
-                            "ની " +
-                            AppStrings.celebrationLabel,
-                        _placeController.text,
-                        fromDate,
-                        toDate,
-                        _familyNameController.text,
-                        _functionName.text
-                      );
+                    if (isValid()) {
+                      print("valid");
+                      final res = await _newFunctionNewViewModel!
+                          .saveNewFunction(
+                              _customer!.customerId!,
+                              _functionName.text +
+                                  "ની " +
+                                  AppStrings.celebrationLabel,
+                              _placeController.text,
+                              fromDate!,
+                              toDate,
+                              _familyNameController.text,
+                              _functionName.text);
+
                       EasyLoading.dismiss();
                       if (res.toString() == "success") {
+                        clearData();
                         showSnack(
                             context, AppStrings.newFunctionCreationSuccess);
-                        Navigator.pushReplacementNamed(
-                            context, Routes.newFunctionDetail);
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => NewFunctionDetailScreen(),
+                                settings: RouteSettings(arguments: {
+                                  DBConstant.CUSTOMER_ID: customerProvider!
+                                      .currentCustomer!.customerId,
+                                  DBConstant.FUNCTION_ID: customerProvider!
+                                      .currentFunction!.functionId
+                                })));
                       } else {
+                        EasyLoading.dismiss();
+
                         print(res.toString());
                         showSnack(context, res.toString());
                       }

@@ -15,7 +15,7 @@ class MyDatePicker extends StatefulWidget {
 }
 
 class _MyDatePickerState extends State<MyDatePicker> {
-  DateTime selectedDate = DateTime.now();
+  DateTime? selectedDate;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _MyDatePickerState extends State<MyDatePicker> {
                   children: [
                     const Icon(Icons.calendar_month),
                     SizedBox(width: 8,),
-                    Text(getStringFromDate(selectedDate, "dd-MM-yyyy")!,style: getRegularStyle(
+                    Text(selectedDate!=null?getStringFromDate(selectedDate!, "dd-MM-yyyy")!:"Select Date",style: getRegularStyle(
                   fontColor: ColorManager.secondaryFont,
                   fontSize: FontSize.labelSize),
             ),
@@ -53,8 +53,8 @@ class _MyDatePickerState extends State<MyDatePicker> {
               onPressed: () async {
                 final pickedDate = await showDatePicker(
                   context: context,
-                  initialDate: selectedDate,
-                  firstDate: DateTime(2022),
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.now(),
                   lastDate: DateTime(2030),
                 );
                 if (pickedDate != null) {
