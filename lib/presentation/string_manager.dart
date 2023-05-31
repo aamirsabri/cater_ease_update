@@ -76,7 +76,7 @@ class AppStrings {
   static const String toDateLabel = "કયા સુધી";
   static const String totalEventsLabel = "ટોટલ ઇવેન્ટ્સ - ";
   static const String totalDaysLabel = "ટોટલ દિવસ - ";
-
+  static const String eventSearchLabel = "શોધવા માટે";
 
 
   //errror messege

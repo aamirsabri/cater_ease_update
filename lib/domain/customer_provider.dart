@@ -20,6 +20,11 @@ class CustomerProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  resetCustomerProvider(){
+    _currentCustomer = null;
+    _currentFunction = null;
+  }
+
   updateCustomerFunction(CustomerFunction customerFunction){
     _currentFunction = customerFunction;
     notifyListeners();

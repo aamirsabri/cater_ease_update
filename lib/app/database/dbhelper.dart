@@ -94,6 +94,7 @@ class DBHelper {
   static Future insertCustomerFunction(CustomerFunction function) async {
     Database db = await getDatabase;
     final res=await db.insert(DB_TABLE_CUSTOMER_FUNCTION, function.toMap());
+    
     print("recored inserted " + function.toString() + " res " + res.toString());
     return res;
   }

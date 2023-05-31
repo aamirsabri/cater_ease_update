@@ -42,7 +42,9 @@ class _NewFunctionDetailScreenState extends State<NewFunctionDetailScreen> {
       _functionDetailViewModel.loadData().then((_){
       _isLoading = false;
       EasyLoading.dismiss();
-      
+      setState(() {
+        
+      });
       }).then((value) {
        
       });
@@ -77,6 +79,8 @@ class _NewFunctionDetailScreenState extends State<NewFunctionDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    currentCustomer = customerProvider.currentCustomer;
+    customerFunction = customerProvider.currentFunction;
     return _isLoading?Center(child: CircularProgressIndicator(),):
     Scaffold(
       appBar: AppBar(

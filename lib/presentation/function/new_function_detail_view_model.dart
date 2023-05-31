@@ -23,6 +23,7 @@ class NewFunctionDetailViewModel {
     final data = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final customerId = data[DBConstant.CUSTOMER_ID];
     final functionId = data[DBConstant.FUNCTION_ID];
+    print("customer id " + customerId.toString() + "function id " + functionId.toString());
     await Provider.of<CustomerProvider>(context,listen: false).loadFunction(customerId,functionId);
     
  
