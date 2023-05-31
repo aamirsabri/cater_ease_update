@@ -53,7 +53,8 @@ class NewFunctionNewViewModel {
       String? address,
       DateTime startDate,
       DateTime? endDate,
-      String familyName) async {
+      String familyName,
+      String functionType) async {
     print(
         "${customerId} ${functionName} ${address} ${startDate.toString()} ${endDate.toString()} ${familyName}");
     EasyLoading.show();
@@ -70,7 +71,8 @@ class NewFunctionNewViewModel {
             address: address,
             startDate: startDate,
             endDate: endDate,
-            familyName: familyName);
+            familyName: familyName,
+            functionType: functionType);
         print(newFunction.toMap().toString());
 
         final functionId = await DBHelper.insertCustomerFunction(newFunction);

@@ -19,15 +19,14 @@ class NewFunctionDetailViewModel {
   BuildContext context;
   NewFunctionDetailViewModel(this.context);
 
-  Future<void> loadData()async{
-    final data = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+  Future<void> loadData() async {
+    final data =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final customerId = data[DBConstant.CUSTOMER_ID];
     final functionId = data[DBConstant.FUNCTION_ID];
-    await Provider.of<CustomerProvider>(context,listen: false).loadFunction(customerId,functionId);
-    
- 
+    await Provider.of<CustomerProvider>(context, listen: false)
+        .loadFunction(customerId, functionId);
   }
-
 
   Future<String> saveNewCustomer(
       String name, String? email, String mobile, String? address) async {
@@ -59,74 +58,75 @@ class NewFunctionDetailViewModel {
     }
   }
 
-  Future<String> saveNewFunction(
-      int customerId,
-      String functionName,
-      String? address,
-      DateTime startDate,
-      DateTime? endDate,
-      String familyName) async {
-    print(
-        "${customerId} ${functionName} ${address} ${startDate.toString()} ${endDate.toString()} ${familyName}");
-    EasyLoading.show();
-    String result = "something went wrong";
-    try {
-      if (await NetworkInfo.isConnected()) {
-        final catererId = Provider.of<CatererProvider>(context, listen: false)
-            .caterer!
-            .catererId;
-        CustomerFunction newFunction = CustomerFunction(
-            catererId: catererId,
-            customerId: customerId,
-            functionName: functionName,
-            address: address,
-            startDate: startDate,
-            endDate: endDate,
-            familyName: familyName);
-        print(newFunction.toMap().toString());
+  // Future<String> saveNewFunction(
+  //     int customerId,
+  //     String functionName,
+  //     String? address,
+  //     DateTime startDate,
+  //     DateTime? endDate,
+  //     String familyName) async {
+  //   print(
+  //       "${customerId} ${functionName} ${address} ${startDate.toString()} ${endDate.toString()} ${familyName}");
+  //   EasyLoading.show();
+  //   String result = "something went wrong";
+  //   try {
+  //     if (await NetworkInfo.isConnected()) {
+  //       final catererId = Provider.of<CatererProvider>(context, listen: false)
+  //           .caterer!
+  //           .catererId;
+  //       CustomerFunction newFunction = CustomerFunction(
+  //           catererId: catererId,
+  //           customerId: customerId,
+  //           functionName: functionName,
+  //           address: address,
+  //           startDate: startDate,
+  //           endDate: endDate,
+  //           familyName: familyName,
+  //           functionType: fun);
+  //       print(newFunction.toMap().toString());
 
-        final functionId = await DBHelper.insertCustomerFunction(newFunction);
-        if (functionId is int) {
-          newFunction.functionId = int.parse(functionId.toString());
-          await Provider.of<CustomerProvider>(context, listen: false)
-              .updateCustomerFunction(newFunction);
-          return "success";
-        } else {
-          return "error while inserting new customer";
-        }
-      } else {
-        return "check your network info";
-      }
-    } catch (e) {
-      print("error");
-      return e.toString();
-    }
-  }
+  //       final functionId = await DBHelper.insertCustomerFunction(newFunction);
+  //       if (functionId is int) {
+  //         newFunction.functionId = int.parse(functionId.toString());
+  //         await Provider.of<CustomerProvider>(context, listen: false)
+  //             .updateCustomerFunction(newFunction);
+  //         return "success";
+  //       } else {
+  //         return "error while inserting new customer";
+  //       }
+  //     } else {
+  //       return "check your network info";
+  //     }
+  //   } catch (e) {
+  //     print("error");
+  //     return e.toString();
+  //   }
+  // }
 
-  Future<dynamic> getFunctionSuggesions(String catererId) async {
-    EasyLoading.show();
-    List<String> functionTypes = [];
-    try {
-      if (await NetworkInfo.isConnected()) {
-        DocumentReference funcTypesRef = await _firestore
-            .collection(Collection.FUNCTION_TYPES)
-            .doc(catererId);
-        await funcTypesRef.get().then((DocumentSnapshot doc) {
-          final data = doc.data() as Map<String, dynamic>;
-          functionTypes =
-              List<String>.from(data[Field.FUNCTION_TYPES]) as List<String>;
-          print("function type " + functionTypes.toString());
-        });
-        return functionTypes;
-      } else {
-        return "check your internet connection";
-      }
-    } on FirebaseException catch (e) {
-      return e.code.toString();
-    } catch (e) {
-      return e.toString();
-    }
-  }
+  // Future<dynamic> getFunctionSuggesions(String catererId) async {
+  //   EasyLoading.show();
+  //   List<String> functionTypes = [];
+  //   try {
+  //     if (await NetworkInfo.isConnected()) {
+  //       DocumentReference funcTypesRef = await _firestore
+  //           .collection(Collection.FUNCTION_TYPES)
+  //           .doc(catererId);
+  //       await funcTypesRef.get().then((DocumentSnapshot doc) {
+  //         final data = doc.data() as Map<String, dynamic>;
+  //         functionTypes =
+  //             List<String>.from(data[Field.FUNCTION_TYPES]) as List<String>;
+  //         print("function type " + functionTypes.toString());
+  //       });
+  //       return functionTypes;
+  //     } else {
+  //       return "check your internet connection";
+  //     }
+  //   } on FirebaseException catch (e) {
+  //     return e.code.toString();
+  //   } catch (e) {
+  //     return e.toString();
+  //   }
+  // }
 
   Future<dynamic> getAllConsumers() async {
     Map<String, Customer> customers = {};

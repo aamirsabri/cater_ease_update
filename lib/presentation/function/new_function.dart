@@ -387,16 +387,18 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                     print("_customer id " + _customer.toString());
                     print("family name " + _familyNameController.text);
                     if (_formKey.currentState?.validate() ?? false) {
-                      final res = await _newFunctionNewViewModel!
-                          .saveNewFunction(
-                              _customer!.customerId!,
-                              _functionName.text +
-                                  "ની " +
-                                  AppStrings.celebrationLabel,
-                              _placeController.text,
-                              fromDate,
-                              toDate,
-                              _familyNameController.text);
+                      final res =
+                          await _newFunctionNewViewModel!.saveNewFunction(
+                        _customer!.customerId!,
+                        _functionName.text +
+                            "ની " +
+                            AppStrings.celebrationLabel,
+                        _placeController.text,
+                        fromDate,
+                        toDate,
+                        _familyNameController.text,
+                        _functionName.text
+                      );
                       EasyLoading.dismiss();
                       if (res.toString() == "success") {
                         showSnack(

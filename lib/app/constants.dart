@@ -89,6 +89,7 @@ class DBConstant {
   static const String FUNCTION_START_DATE = "START_DATE";
   static const String FUNCTION_END_DATE = "END_DATE";
   static const String FUNCTION_FAMILY_NAME = "FAMILY_NAME";
+  static const String FUNCTION_TYPE = "FUNCTION_TYPE";
 
   static const String EVENT_DESCRIPTION = "EVENT_DESCRIPTION";
   static const String EVENT_ICON = "EVENT_ICON";
