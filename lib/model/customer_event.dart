@@ -28,7 +28,7 @@ class CustomerEvent {
       eventId: data?[DBConstant.CUSTOMER_EVENT_ID],
       catererId: data?[DBConstant.CATERER_ID],
       functionId: data?[DBConstant.FUNCTION_ID],
-      eventDate: data?[DBConstant.EVENT_DATE]??null,
+      eventDate: data?[DBConstant.EVENT_DATE] ?? null,
       place: data?[DBConstant.EVENT_PLACE],
       isVipMenu: data?[DBConstant.IS_VIP_MENU],
     );
@@ -39,7 +39,7 @@ class CustomerEvent {
       DBConstant.CATERER_ID: catererId,
       DBConstant.EVENT_MASTER_ID: eventMasterId,
       DBConstant.CUSTOMER_EVENT_ID: eventId,
-      DBConstant.FUNCTION_ID:functionId,
+      DBConstant.FUNCTION_ID: functionId,
       DBConstant.EVENT_DATE: eventDate ?? '',
       DBConstant.EVENT_PLACE: place ?? '',
       DBConstant.IS_VIP_MENU: isVipMenu ?? false
@@ -49,9 +49,9 @@ class CustomerEvent {
   factory CustomerEvent.fromMap(Map<String, dynamic>? data) {
     return CustomerEvent(
         catererId: data?[DBConstant.CATERER_ID],
-        eventMasterId: data?[DBConstant.EVENT_MASTER_ID], 
-        functionId: data?[DBConstant.FUNCTION_ID] ,
-        eventId: data?[DBConstant.CUSTOMER_EVENT_ID],      
+        eventMasterId: data?[DBConstant.EVENT_MASTER_ID],
+        eventId: data?[DBConstant.CUSTOMER_EVENT_ID],
+        functionId: data?[DBConstant.FUNCTION_ID],
         eventDate: data?[DBConstant.EVENT_DATE] ?? null,
         place: data?[DBConstant.EVENT_PLACE] ?? "",
         isVipMenu: data?[DBConstant.IS_VIP_MENU] ?? false);
@@ -63,13 +63,11 @@ class CustomerEvent {
       DBConstant.CUSTOMER_EVENT_ID: eventId,
       DBConstant.FUNCTION_ID: functionId,
       DBConstant.EVENT_DATE: eventDate ?? "",
-      DBConstant.EVENT_PLACE: place?? "",
+      DBConstant.EVENT_PLACE: place ?? "",
       DBConstant.IS_VIP_MENU: isVipMenu ?? false
     };
   }
 
-  @override
-  String toString() {
-    return "ID: ${eventId} eventMasterid: ${eventMasterId} functionId: ${functionId}!} ?? '' Cat Id: ${catererId} Event Place: ${place} EventDate: ${eventDate.toString()} ";
-  }
+  String toString() =>
+      "EVENT MASTER ID: ${eventMasterId} Event ID: ${eventId} catererId: ${catererId} function ID: ${functionId} Date: ${eventDate} place: ${place} ?? '' is vip: ${isVipMenu}   ";
 }

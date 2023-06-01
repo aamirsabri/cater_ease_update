@@ -15,6 +15,7 @@ class EventSelectionScreen extends StatefulWidget {
 }
 
 class _EventSelectionScreenState extends State<EventSelectionScreen> {
+  EventSelectionViewModel? _eventSelectionViewModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +31,6 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
                 size: 35,
               )),
         ],
-        
         iconTheme: IconThemeData(color: ColorManager.secondaryFont),
         title: Align(
             alignment: Alignment.centerLeft,
@@ -42,39 +42,34 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
             )),
       ),
       body: Column(
-         mainAxisAlignment: MainAxisAlignment.start,
-         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 24,),
+          SizedBox(
+            height: 24,
+          ),
           Center(
-            child: Container(    
-              padding: EdgeInsets.all(10),          
-              width: MediaQuery.of(context).size.width*.79,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              width: MediaQuery.of(context).size.width * .70,
               height: 50,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: ColorManager.white
-              ),
-              child:  Row(     
+                  borderRadius: BorderRadius.circular(20),
+                  color: ColorManager.white),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center, 
-                       
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(Icons.search,color: ColorManager.lightGrey,),
                   Expanded(
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height*0.3,
-                      child: TextFormField(                      
-                        decoration: InputDecoration(                          
-                          contentPadding: EdgeInsets.all(6),
-                          hintText: AppStrings.eventSearchLabel,
-                          hintStyle: TextStyle(fontSize: FontSize.appBarLabelSize,color: ColorManager.lightGrey),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          hintText: "dadfkkd",
+                          hintStyle:
+                              TextStyle(fontSize: FontSize.appBarLabelSize),
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none
-                          // isDense: true
-                        ),
-                      ),
+                          enabledBorder: InputBorder.none),
                     ),
                   ),
                 ],

@@ -230,16 +230,17 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
             ));
   }
 
-  bool isValid(){
-    if(_formKey.currentState!.validate()){
+  bool isValid() {
+    if (_formKey.currentState!.validate()) {
       print("valid in is valid");
-      print("from date "+ fromDate.toString() + " to date " + toDate.toString());
-      if(fromDate == null || toDate == null){
+      print(
+          "from date " + fromDate.toString() + " to date " + toDate.toString());
+      if (fromDate == null || toDate == null) {
         return false;
-      }else{
+      } else {
         return true;
       }
-    }else{
+    } else {
       return false;
     }
     return false;
@@ -253,16 +254,16 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
     toDate = selectedDate;
   }
 
-  void clearData(){
+  void clearData() {
     TextEditingController _customerAddress = TextEditingController();
-  TextEditingController _customerMobile = TextEditingController();
-  TextEditingController _searchController = TextEditingController();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _functionName = TextEditingController();
-  TextEditingController _mobileController = TextEditingController();
-  TextEditingController _placeController = TextEditingController();
-  TextEditingController _familyNameController = TextEditingController();
-  TextEditingController _customerEmail = TextEditingController();
+    TextEditingController _customerMobile = TextEditingController();
+    TextEditingController _searchController = TextEditingController();
+    TextEditingController _nameController = TextEditingController();
+    TextEditingController _functionName = TextEditingController();
+    TextEditingController _mobileController = TextEditingController();
+    TextEditingController _placeController = TextEditingController();
+    TextEditingController _familyNameController = TextEditingController();
+    TextEditingController _customerEmail = TextEditingController();
     _customerAddress.clear();
     _customerMobile.clear();
     _searchController.clear();
@@ -436,21 +437,27 @@ class _NewFunctionScreenState extends State<NewFunctionScreen> {
                               _placeController.text,
                               fromDate!,
                               toDate,
-                              _familyNameController.text);
-                      
+                              _familyNameController.text,
+                              _functionName.text);
+
                       EasyLoading.dismiss();
                       if (res.toString() == "success") {
                         clearData();
                         showSnack(
                             context, AppStrings.newFunctionCreationSuccess);
                         Navigator.pushReplacement(
-                            context, MaterialPageRoute(builder: (_)=> NewFunctionDetailScreen(),settings: RouteSettings(arguments: {                           
-                                  DBConstant.CUSTOMER_ID:customerProvider!.currentCustomer!.customerId,
-                                  DBConstant.FUNCTION_ID:customerProvider!.currentFunction!.functionId
-                          })));
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => NewFunctionDetailScreen(),
+                                settings: RouteSettings(arguments: {
+                                  DBConstant.CUSTOMER_ID: customerProvider!
+                                      .currentCustomer!.customerId,
+                                  DBConstant.FUNCTION_ID: customerProvider!
+                                      .currentFunction!.functionId
+                                })));
                       } else {
                         EasyLoading.dismiss();
-                        
+
                         print(res.toString());
                         showSnack(context, res.toString());
                       }

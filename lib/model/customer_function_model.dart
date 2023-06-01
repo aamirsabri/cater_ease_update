@@ -11,7 +11,7 @@ class CustomerFunction {
   String familyName;
   DateTime startDate;
   DateTime? endDate;
-
+  String functionType;
   CustomerFunction(
       {required this.customerId,
       this.functionId,
@@ -20,7 +20,8 @@ class CustomerFunction {
       this.address,
       required this.familyName,
       required this.startDate,
-      this.endDate});
+      this.endDate,
+      required this.functionType});
 
   factory CustomerFunction.fromFirestore(
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
@@ -33,7 +34,8 @@ class CustomerFunction {
         address: data?[DBConstant.ADDRESS],
         familyName: data?[DBConstant.FUNCTION_FAMILY_NAME],
         startDate: data?[DBConstant.FUNCTION_START_DATE],
-        endDate: data?[DBConstant.FUNCTION_END_DATE]);
+        endDate: data?[DBConstant.FUNCTION_END_DATE],
+        functionType: data?[DBConstant.FUNCTION_TYPE]);
   }
 
   Map<String, dynamic> toMap() {
@@ -49,7 +51,8 @@ class CustomerFunction {
           : ""),
       DBConstant.FUNCTION_END_DATE: (endDate != null
           ? getStringFromDate(endDate!, "yyyy-MM-dd hh:mm:ss")!
-          : "")
+          : ""),
+      DBConstant.FUNCTION_TYPE: functionType
     };
   }
 
@@ -69,6 +72,7 @@ class CustomerFunction {
           ? getDateFromString(
               data![DBConstant.FUNCTION_END_DATE], "yyyy-MM-dd hh:mm:ss")
           : null,
+      functionType: data?[DBConstant.FUNCTION_TYPE] ?? "",
     );
   }
 
