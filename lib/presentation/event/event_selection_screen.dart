@@ -1,3 +1,4 @@
+import 'package:cater_ease/presentation/value_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../color_manager.dart';
@@ -62,10 +63,9 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
                   Icon(Icons.search,color: ColorManager.lightGrey,),
                   Expanded(
                     child: SizedBox(
-                      height: 100,
+                      height: MediaQuery.of(context).size.height*0.3,
                       child: TextFormField(                      
-                        decoration: InputDecoration(
-                          
+                        decoration: InputDecoration(                          
                           contentPadding: EdgeInsets.all(6),
                           hintText: AppStrings.eventSearchLabel,
                           hintStyle: TextStyle(fontSize: FontSize.appBarLabelSize,color: ColorManager.lightGrey),
@@ -81,6 +81,41 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
               ),
             ),
           ),
+          SizedBox(height:24),
+          Container(
+            
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: ColorManager.white,
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(16),topRight: Radius.circular(16git)),
+
+            ),
+            child: Column(
+              children: [
+                Container(                
+                  decoration: BoxDecoration(
+                    color: ColorManager.primary,
+                    borderRadius: BorderRadius.circular(AppSize.borderRadius),
+                  ),
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),                                
+                    leading: Icon(Icons.food_bank,size: AppSize.listTileIconSize,color: ColorManager.secondaryFont,),
+                    horizontalTitleGap: 8,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 16,vertical: 6),
+                    title: Text("Mandap Muhurt",style: getRegularStyle(fontColor: ColorManager.secondaryFont,fontSize: FontSize.mediumLargeSize),),
+                    trailing: Icon(Icons.add,color: ColorManager.secondaryFont,),
+                  ),
+                ),
+                ListTile(
+                  horizontalTitleGap: 4,
+                  tileColor: ColorManager.primary,              
+                  leading: Icon(Icons.food_bank),
+                  title: Text("Mandap Muhurt"),
+                  trailing: Icon(Icons.add,color: ColorManager.secondaryFont,size: FontSize.mediumLargeSize,),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
