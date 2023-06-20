@@ -52,7 +52,7 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
           Center(
             child: Container(
               padding: EdgeInsets.all(10),
-              width: MediaQuery.of(context).size.width * .70,
+              width: MediaQuery.of(context).size.width * .79,
               height: 50,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -61,16 +61,26 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.search,color: ColorManager.lightGrey,),
+                  Icon(
+                    Icons.search,
+                    color: ColorManager.lightGrey,
+                  ),
                   Expanded(
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          hintText: "dadfkkd",
-                          hintStyle:
-                              TextStyle(fontSize: FontSize.appBarLabelSize),
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                          enabledBorder: InputBorder.none),
+                    child: SizedBox(
+                      height: 100,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(6),
+                            hintText: AppStrings.eventSearchLabel,
+                            hintStyle: TextStyle(
+                                fontSize: FontSize.appBarLabelSize,
+                                color: ColorManager.lightGrey),
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none
+                            // isDense: true
+                            ),
+                      ),
                     ),
                   ),
                 ],

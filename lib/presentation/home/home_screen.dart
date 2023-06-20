@@ -46,15 +46,29 @@ class _HomeScreenState extends State<HomeScreen> {
       _homeViewModelController = value;
     }).then((value) {
       EasyLoading.show();
-      _homeViewModelController!.getCustomerFutureFunction().then((result) {
-        EasyLoading.dismiss();
-        if (!result.isEmpty) {
-          _futureCustomerFunctions = List<FutureFunctionView>.from(result);
-          setState(() {});
-        } else {
-          print("result is empty");
-        }
-      });
+      fetchFutureFunctions();
+      // _homeViewModelController!.getCustomerFutureFunction().then((result) {
+      //   EasyLoading.dismiss();
+      //   if (!result.isEmpty) {
+      //     _futureCustomerFunctions = List<FutureFunctionView>.from(result);
+      //     setState(() {});
+      //   } else {
+      //     print("result is empty");
+      //   }
+      // });
+    });
+  }
+
+  Future<List<FutureFunctionView>> fetchFutureFunctions() async {
+    return _homeViewModelController!.getCustomerFutureFunction().then((result) {
+      EasyLoading.dismiss();
+      if (!result.isEmpty) {
+        _futureCustomerFunctions = List<FutureFunctionView>.from(result);
+        return _futureCustomerFunctions;
+        setState(() {});
+      } else {
+        print("result is empty");
+      }
     });
   }
 
@@ -210,7 +224,8 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                Provider.of<CustomerProvider>(context,listen: false).resetCustomerProvider();
+                Provider.of<CustomerProvider>(context, listen: false)
+                    .resetCustomerProvider();
                 Navigator.pushNamed(context, Routes.newFunction);
               },
               icon: Icon(
@@ -264,14 +279,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           Customer customer =
                               _futureCustomerFunctions[index].customer;
                           return GestureDetector(
-                            onTap: (){
-
-                              Navigator.push(context, MaterialPageRoute(builder: (_){
-                                return NewFunctionDetailScreen();
-                              },settings: RouteSettings(arguments: {                           
-                                  DBConstant.CUSTOMER_ID:customerFunction.customerId,
-                                  DBConstant.FUNCTION_ID:customerFunction.functionId
-                          }),));
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) {
+                                      return NewFunctionDetailScreen();
+                                    },
+                                    settings: RouteSettings(arguments: {
+                                      DBConstant.CUSTOMER_ID:
+                                          customerFunction.customerId,
+                                      DBConstant.FUNCTION_ID:
+                                          customerFunction.functionId
+                                    }),
+                                  ));
                             },
                             child: Container(
                               margin: EdgeInsets.only(right: 16),

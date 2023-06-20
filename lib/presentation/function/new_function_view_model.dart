@@ -73,7 +73,7 @@ class NewFunctionNewViewModel {
             endDate: endDate,
             familyName: familyName,
             functionType: functionType);
-        print(newFunction.toMap().toString());
+        print("new function before insert" + newFunction.toMap().toString());
 
         final functionId = await DBHelper.insertCustomerFunction(newFunction);
         if (functionId is int) {
