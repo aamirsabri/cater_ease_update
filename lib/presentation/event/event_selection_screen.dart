@@ -6,6 +6,7 @@ import '../font_manager.dart';
 import '../route_manager.dart';
 import '../string_manager.dart';
 import '../style_manager.dart';
+import 'event_selection_view_model.dart';
 
 class EventSelectionScreen extends StatefulWidget {
   const EventSelectionScreen({super.key});
@@ -82,7 +83,7 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: ColorManager.white,
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(16),topRight: Radius.circular(16git)),
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(16),topRight: Radius.circular(16)),
 
             ),
             child: Column(

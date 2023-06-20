@@ -1,1 +1,3 @@
-class EventSelectionViewModel {}
+class EventSelectionViewModel {
+  EventSelectionViewModel();
+}
