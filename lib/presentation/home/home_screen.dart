@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Future<List<FutureFunctionView>> fetchFutureFunctions() async {
+  Future<List<FutureFunctionView>?> fetchFutureFunctions() async {
     return _homeViewModelController!.getCustomerFutureFunction().then((result) {
       EasyLoading.dismiss();
       if (!result.isEmpty) {
@@ -79,10 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
   void didChangeDependencies() async {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    _user = await Provider.of<UserDetailProvider>(context, listen: false).user;
+    _user = await Provider.of<UserDetailProvider>(context, listen: true).user;
     print("user " + _user!.userName);
     _caterer =
-        await Provider.of<CatererProvider>(context, listen: false).caterer;
+        await Provider.of<CatererProvider>(context, listen: true).caterer;
     setState(() {});
   }
 
