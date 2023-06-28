@@ -90,7 +90,11 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
           Center(
             child: Container(
               padding: EdgeInsets.all(10),
+<<<<<<< HEAD
               width: MediaQuery.of(context).size.width * .70,
+=======
+              width: MediaQuery.of(context).size.width * .79,
+>>>>>>> bfd48b135bf2963e39453c8e2ecb7a31db992a55
               height: 50,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -104,6 +108,7 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
                     color: ColorManager.lightGrey,
                   ),
                   Expanded(
+<<<<<<< HEAD
                     child: TextFormField(
                       decoration: InputDecoration(
                           hintText: "",
@@ -112,6 +117,23 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
                           border: InputBorder.none,
                           focusedBorder: InputBorder.none,
                           enabledBorder: InputBorder.none),
+=======
+                    child: SizedBox(
+                      height: 100,
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(6),
+                            hintText: AppStrings.eventSearchLabel,
+                            hintStyle: TextStyle(
+                                fontSize: FontSize.appBarLabelSize,
+                                color: ColorManager.lightGrey),
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none
+                            // isDense: true
+                            ),
+                      ),
+>>>>>>> bfd48b135bf2963e39453c8e2ecb7a31db992a55
                     ),
                   ),
                 ],
@@ -123,8 +145,13 @@ class _EventSelectionScreenState extends State<EventSelectionScreen> {
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: ColorManager.white,
+<<<<<<< HEAD
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(16), topRight: Radius.circular(16)),
+=======
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(16),topRight: Radius.circular(16)),
+
+>>>>>>> bfd48b135bf2963e39453c8e2ecb7a31db992a55
             ),
             child: Column(
               children: [

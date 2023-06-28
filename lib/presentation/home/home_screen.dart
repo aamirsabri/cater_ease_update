@@ -64,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
       EasyLoading.dismiss();
       if (!result.isEmpty) {
         _futureCustomerFunctions = List<FutureFunctionView>.from(result);
+        return _futureCustomerFunctions;
         setState(() {});
       } else {
         print("result is empty");
