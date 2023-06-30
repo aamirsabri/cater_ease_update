@@ -69,6 +69,11 @@ class Constant {
   static const String testGetLocations = "/rdss/getLocationsByLocation";
 }
 
+class FirebaseConstants {
+  static const String EVENT_MASTER_COLLECTION = "events";
+  static const String CATERER_COLLECTION = "caterers";
+}
+
 class DBConstant {
   static const String CUSTOMER_ID = "CUSTOMER_ID";
   static const String CUSTOMER_NAME = "CUSTOMER_NAME";
@@ -91,10 +96,10 @@ class DBConstant {
   static const String FUNCTION_FAMILY_NAME = "FAMILY_NAME";
   static const String FUNCTION_TYPE = "FUNCTION_TYPE";
 
-  static const String EVENT_DESCRIPTION = "EVENT_DESCRIPTION";
-  static const String EVENT_ICON = "EVENT_ICON";
-  static const String EVENT_MASTER_ID = "EVENT_MASTER_ID";
-  static const String EVENT_NAME = "EVENT_NAME";
+  static const String EVENT_DESCRIPTION = "event_description";
+  static const String EVENT_ICON = "icon";
+  static const String EVENT_MASTER_ID = "event_master_id ";
+  static const String EVENT_NAME = "event_name";
 
   static const String CUSTOMER_EVENT_ID = "EVENT_ID";
   static const String EVENT_DATE = "EVENT_DATE";

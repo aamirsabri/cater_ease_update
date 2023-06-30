@@ -1,4 +1,5 @@
-
+import 'package:cater_ease/model/response.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../app/constants.dart';
 
@@ -67,6 +68,34 @@ class AppServiceClient {
     }
   }
 
+  static Future<dynamic> getEventMaster(String catererId) async {
+    List events = [];
+    List eventMasters = [];
+    try {
+      FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+      final eventMasterRef = await firebaseFirestore
+          .collection(FirebaseConstants.CATERER_COLLECTION)
+          .doc(catererId)
+          .collection(FirebaseConstants.EVENT_MASTER_COLLECTION)
+          .get();
+      if (eventMasterRef.docs.isNotEmpty) {
+        events.addAll(eventMasterRef.docs);
+
+        events.forEach((event) {
+          eventMasters.add(
+            EventMasterViewModel(
+                eventMasterId: event[DBConstant.EVENT_MASTER_ID],
+                eventName: event[DBConstant.EVENT_NAME],
+                imageUrl: event[DBConstant.EVENT_ICON]),
+          );
+        });
+      }
+      return eventMasters;
+    } catch (e) {
+      return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+    }
+  }
+
   // static Future<dynamic> getAllCompanyMaster() async {
   //   try {
   //     var url = Uri.parse(Constant.baseUrl + Constant.getAllCompanies);
@@ -79,7 +108,7 @@ class AppServiceClient {
   //     }
   //     if (response['status'] == 200) {
   //       return response[JSON_OBJECT_COMPANIES].map((company) {
-          
+
   //       }).toList();
   //     } else {
   //       if (response['status'] is int) {
@@ -92,5 +121,4 @@ class AppServiceClient {
   //     return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
   //   }
   // }
-
 }
