@@ -68,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {});
       } else {
         print("result is empty");
+        return [];
       }
     });
   }
