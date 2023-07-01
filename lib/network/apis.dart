@@ -80,11 +80,12 @@ class AppServiceClient {
           .get();
       if (eventMasterRef.docs.isNotEmpty) {
         events.addAll(eventMasterRef.docs);
-
-        events.forEach((event) {
+        
+        events.forEach((event) async{          
+          var data = event.data() as Map<String,dynamic>;                    
           eventMasters.add(
             EventMasterViewModel(
-                eventMasterId: event[DBConstant.EVENT_MASTER_ID],
+                eventMasterId: event.id,
                 eventName: event[DBConstant.EVENT_NAME],
                 imageUrl: event[DBConstant.EVENT_ICON]),
           );
