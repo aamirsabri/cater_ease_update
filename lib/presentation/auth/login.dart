@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+import '../../model/user_model.dart';
+import '../../network/failure.dart';
 import '../value_manager.dart';
 import 'login_view_model.dart';
 
@@ -55,17 +57,18 @@ class _LoginScreenState extends State<LoginScreen> {
   signInUser() async {
     EasyLoading.show();
     if (_formKey.currentState?.validate() ?? false) {
-      String res = await _loginViewModelController.signInUser(
+      final res = await _loginViewModelController.signInUser(
           _emailController.text, _passwordConroller.text);
+      print("result in login " + res.toString());
       EasyLoading.dismiss();
-      if (res == "success") {
+      if (res is User) {
         showSnack(
             context,
             Languages.of(context)?.successfullySignedIn ??
                 AppStrings.successfullySignedIn);
         Navigator.pushReplacementNamed(context, Routes.homeRoute);
-      } else {
-        showSnack(context, res);
+      } else if (res is Failure) {
+        showSnack(context, res.messege);
       }
     } else {
       return showSnack(context, "Please Enter Valid Data");
@@ -109,100 +112,102 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Form(
               key: _formKey,
-              child:
-                  Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 42),
-                  child: TextFormField(
-                    controller: _emailController,
-                    validator: (value) {
-                      if (value!.isNotEmpty) {
-                        return null;
-                      }
-                      return "Email must not be empty";
-                    },
-                    decoration: InputDecoration(
-                        labelText: Languages.of(context)?.emailHint ??
-                            AppStrings.emailHint),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 18, horizontal: 42),
-                  child: TextFormField(
-                    obscureText: true,
-                    controller: _passwordConroller,
-                    keyboardType: TextInputType.visiblePassword,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Password must not be empty";
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        labelText: Languages.of(context)?.passwordHint ??
-                            AppStrings.passwordHint),
-                  ),
-                ),
-                SizedBox(height: AppSize.s20),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 18, horizontal: 42),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize:
-                          Size(MediaQuery.of(context).size.width * 0.8, 50),
-                    ),
-                    onPressed: () async {
-                      await signInUser();
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          Languages.of(context)?.loginLabel ??
-                              AppStrings.loginLabel,
-                          style: getSemiBoldStyle(
-                              fontColor: ColorManager.secondaryFont,
-                              fontSize: FontSize.mediumLargeSize),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: AppSize.s12,
-                ),
-                Row(
+              child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(AppPadding.p8),
-                      child: Text(
-                        AppStrings.dontHaveAccount,
-                        style: getSemiBoldStyle(
-                            fontColor: ColorManager.primaryFontOpacity70),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 18, horizontal: 42),
+                      child: TextFormField(
+                        controller: _emailController,
+                        validator: (value) {
+                          if (value!.isNotEmpty) {
+                            return null;
+                          }
+                          return "Email must not be empty";
+                        },
+                        decoration: InputDecoration(
+                            labelText: Languages.of(context)?.emailHint ??
+                                AppStrings.emailHint),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.all(AppPadding.p8),
-                      child: TextButton(
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
-                              return RegisterScreen();
-                            }));
-                          },
-                          child: Text(
-                              Languages.of(context)?.registerLabel ??
-                                  AppStrings.registerLabel,
-                              style: getBoldStyle(
-                                  fontColor: ColorManager.primary,
-                                  fontSize: FontSize.mediumLargeSize))),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 18, horizontal: 42),
+                      child: TextFormField(
+                        obscureText: true,
+                        controller: _passwordConroller,
+                        keyboardType: TextInputType.visiblePassword,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Password must not be empty";
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            labelText: Languages.of(context)?.passwordHint ??
+                                AppStrings.passwordHint),
+                      ),
                     ),
-                  ],
-                ),
-              ]),
+                    SizedBox(height: AppSize.s20),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 18, horizontal: 42),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize:
+                              Size(MediaQuery.of(context).size.width * 0.8, 50),
+                        ),
+                        onPressed: () async {
+                          await signInUser();
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              Languages.of(context)?.loginLabel ??
+                                  AppStrings.loginLabel,
+                              style: getSemiBoldStyle(
+                                  fontColor: ColorManager.secondaryFont,
+                                  fontSize: FontSize.mediumLargeSize),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: AppSize.s12,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(AppPadding.p8),
+                          child: Text(
+                            AppStrings.dontHaveAccount,
+                            style: getSemiBoldStyle(
+                                fontColor: ColorManager.primaryFontOpacity70),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(AppPadding.p8),
+                          child: TextButton(
+                              onPressed: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return RegisterScreen();
+                                }));
+                              },
+                              child: Text(
+                                  Languages.of(context)?.registerLabel ??
+                                      AppStrings.registerLabel,
+                                  style: getBoldStyle(
+                                      fontColor: ColorManager.primary,
+                                      fontSize: FontSize.mediumLargeSize))),
+                        ),
+                      ],
+                    ),
+                  ]),
             ),
           ],
         ),

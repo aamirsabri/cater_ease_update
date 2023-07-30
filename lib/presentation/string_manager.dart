@@ -51,17 +51,17 @@ class AppStrings {
   static const String appBar_eventSection = "ઈવેન્ટ પસંદ કરો";
 
   //Gujarati messege snack and easyloading
-  static const String newFunctionCreationSuccess = "નવું ફંક્શન સફળતા પૂર્વક બની ગયું છે. ";
-  
+  static const String newFunctionCreationSuccess =
+      "નવું ફંક્શન સફળતા પૂર્વક બની ગયું છે. ";
+
   //screen title
   static const String newFunction = "નવો ફંક્શન";
 
-
   //widget label and hint
   static const String mobileNoLabel = "મોબાઈલ ન.";
-  static const String searchCustomerHint= "ગ્રાહક સર્ચ કરો";
+  static const String searchCustomerHint = "ગ્રાહક સર્ચ કરો";
   static const String customerNameLabel = "ગ્રાહકનું નામ";
-  static const String functionNameLabel= "ફંક્શનનું પ્રકાર";
+  static const String functionNameLabel = "ફંક્શનનું પ્રકાર";
   static const String placeLabel = "સરનામું/સ્થળ";
   static const String familyNameLabel = "પરિવાર નું નામ";
   static const String functionNameHint = "લગ્ન";
@@ -70,15 +70,17 @@ class AppStrings {
   static const String okButtonLabel = "ઓકે";
   static const String emailLabel = "ઈમેલ";
   static const String newCustomerAdded = "નવા ગ્રાહક સફળતાપૂર્વક એડ થઈ ગયા છે";
-  static const String familyLabel  = "પરિવાર";
+  static const String familyLabel = "પરિવાર";
   static const String celebrationLabel = "ઉજવણી";
   static const String fromDateLabel = "ક્યારથી";
   static const String toDateLabel = "કયા સુધી";
   static const String totalEventsLabel = "ટોટલ ઇવેન્ટ્સ - ";
   static const String totalDaysLabel = "ટોટલ દિવસ - ";
   static const String eventSearchLabel = "શોધવા માટે";
-
+  static const String eventDateHint = "ઇવેન્ટ નો તારીખ";
+  static const String eventTimeHint = "ઇવેન્ટ નો સમય";
 
   //errror messege
-  static const String errorNotConnected = "Please check your internet connection";
+  static const String errorNotConnected =
+      "Please check your internet connection";
 }

@@ -2,11 +2,13 @@ class Constant {
   static const String baseUrl = "http://117.205.3.45:8082";
   // static const String testBaseUrl = "https://kasiri.mocklab.io";
   // static const String testBaseUrl = "https://tech.mocklab.io";
-  static const String testBaseUrl = "https://y163z.wiremockapi.cloud";
+  static const String testBaseUrl = "https://5d972.wiremockapi.cloud";
+  static const String newCustomerEvent = "/new_customer_event";
+  static const String getCaterer = "/get_caterer_detail";
   static const String registration = "/attendance_register.php";
   static const String getAllCompanies =
       "/attendance_register_get_all_companies.php";
-  static const String login = "/attendance_login.php";
+  static const String login = "/login";
   static const String getHolidayList = "/attendance_get_holidays.php";
   static const String getDashBoardData = "/attendance_dashboard.php";
   static const String punch = "/attendance_punch.php";
@@ -161,6 +163,18 @@ const String COL_MSG = "msg";
 const String COL_USER_ID = "userId";
 const String COL_USER_NAME = "userName";
 const String COL_PASSWORD = "password";
+
+const String JSON_USER_NAME = "userName";
+const String JSON_EMAIL = "email";
+const String JSON_PASSWORD = "password";
+const String JSON_MOBILE_NO = "mobileNo";
+const String JSON_CATERER_NAME = "catererName";
+const String JSON_PLACE = "place";
+const String JSON_IMEI = "imei";
+const String JSON_IS_ACTIVE = "isActive";
+
+const String JSON_OBJECT_USER = "user";
+const String JSON_OBJECT_CATERER = "caterer";
 
 abstract class SharedPreferencesKeys {
   static const String PREF_KEY_EMP_ID = "PREF_KEY_EMP_ID";

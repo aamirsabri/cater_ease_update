@@ -1,11 +1,14 @@
 import 'package:cater_ease/app/deviceinfo.dart';
 import 'package:cater_ease/app/functions.dart';
+import 'package:cater_ease/model/requests.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
+import '../../network/apis.dart';
+import '../../network/failure.dart';
 import '../../network/networkinfo.dart';
 import '../string_manager.dart';
 
@@ -14,8 +17,28 @@ class RegisterViewModelController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   BuildContext context;
   RegisterViewModelController(this.context);
-
   Future<dynamic?> signUpUser(String userName, String email, String password,
+      String mobileNo, String catererName, String place) async {
+    dynamic deviceInfo = await DeviceInfo.getUniqueDeviceId();
+    if (deviceInfo is Failure) {
+      return deviceInfo;
+    }
+    String imei = await DeviceInfo.getUniqueDeviceId();
+    bool isActive = true;
+    var result = await AppServiceClient.signUpUser(SignUpRequest(
+      userName: userName,
+      email: email.toLowerCase(),
+      password: password,
+      mobileNo: mobileNo,
+      catererName: catererName,
+      place: place,
+      imei: imei,
+      isActive: isActive,
+    ));
+    return result;
+  }
+
+  Future<dynamic?> signUpUser2(String userName, String email, String password,
       String mobileNo, String catererName, String place) async {
     EasyLoading.show();
     String result = "Error while Registration!";

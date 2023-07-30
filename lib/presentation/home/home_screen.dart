@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _user = await Provider.of<UserDetailProvider>(context, listen: true).user;
     print("user " + _user!.userName);
     _caterer =
-        await Provider.of<CatererProvider>(context, listen: true).caterer;
+        await Provider.of<CatererProvider>(context, listen: false).caterer;
     setState(() {});
   }
 

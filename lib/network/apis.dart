@@ -1,8 +1,13 @@
+import 'package:cater_ease/model/caterer_model.dart';
+import 'package:cater_ease/model/customer_event.dart';
+import 'package:cater_ease/model/customer_event_model.dart';
+import 'package:cater_ease/model/requests.dart';
 import 'package:cater_ease/model/response.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../app/constants.dart';
 
+import '../model/user_model.dart';
 import 'error_handling.dart';
 import 'failure.dart';
 import 'networkinfo.dart';
@@ -25,7 +30,7 @@ class AppServiceClient {
         },
         body: convert.jsonEncode(argument),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         print("response in rawhttp " + response.body.toString());
         final jsonResponse =
             convert.jsonDecode(response.body) as Map<String, dynamic>;
@@ -39,6 +44,58 @@ class AppServiceClient {
       }
     } catch (e) {
       print("in erirr " + e.toString());
+      return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+    }
+  }
+
+  static Future<dynamic> getCatererDetail(String catererId) async {
+    try {
+      var url = Uri.parse(Constant.testBaseUrl + Constant.getCaterer);
+      Map<String, dynamic> argument = {COL_CATERER_ID: catererId};
+      var response = await getRawHttp(url, argument);
+      if (response is Failure) {
+        return response;
+      }
+      if (response == null) {
+        return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+      }
+      if (response['status'] == 200) {
+        print("response messege " + response['message']);
+        return Caterer.fromMap(response[JSON_OBJECT_CATERER]);
+      } else {
+        print("response messege else " + response['message']);
+        if (response['status'] is int) {
+          return Failure(response['status'], response['message']);
+        } else {
+          return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+        }
+      }
+    } catch (e) {
+      return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+    }
+  }
+
+  static Future<dynamic> createNewCustomerEvent(
+      CustomerEventModel customerEventModel) async {
+    try {
+      var url = Uri.parse(Constant.baseUrl + Constant.newCustomerEvent);
+      var response = await getRawHttp(url, customerEventModel.toMap());
+      if (response is Failure) {
+        return response;
+      }
+      if (response == null) {
+        return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+      }
+      if (response['status'] == 200) {
+        return response['status'];
+      } else {
+        if (response['status'] is int) {
+          return Failure(response['status'], response['message']);
+        } else {
+          return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+        }
+      }
+    } catch (e) {
       return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
     }
   }
@@ -80,9 +137,9 @@ class AppServiceClient {
           .get();
       if (eventMasterRef.docs.isNotEmpty) {
         events.addAll(eventMasterRef.docs);
-        
-        events.forEach((event) async{          
-          var data = event.data() as Map<String,dynamic>;                    
+
+        events.forEach((event) async {
+          var data = event.data() as Map<String, dynamic>;
           eventMasters.add(
             EventMasterViewModel(
                 eventMasterId: event.id,
@@ -92,6 +149,61 @@ class AppServiceClient {
         });
       }
       return eventMasters;
+    } catch (e) {
+      return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+    }
+  }
+
+  static Future<dynamic> signUpUser(SignUpRequest registerRequest) async {
+    try {
+      var url = Uri.parse(Constant.baseUrl + Constant.registration);
+      Map<String, dynamic> argument = registerRequest.toMap();
+      var response = await getRawHttp(url, argument);
+      if (response is Failure) {
+        return response;
+      }
+      if (response == null) {
+        return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+      }
+      if (response['status'] == 200) {
+        print("response messege " + response['message']);
+        return response["message"];
+      } else {
+        print("response messege else " + response['message']);
+        if (response['status'] is int) {
+          return Failure(response['status'], response['message']);
+        } else {
+          return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+        }
+      }
+    } catch (e) {
+      return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+    }
+  }
+
+  static Future<dynamic> login(LoginRequest login) async {
+    try {
+      var url = Uri.parse(Constant.testBaseUrl + Constant.login);
+      Map<String, dynamic> argument = login.toMap();
+      var response = await getRawHttp(url, argument);
+      if (response is Failure) {
+        return response;
+      }
+      if (response == null) {
+        return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+      }
+      print("status   sssss : " + response['status'].toString());
+      if (response['status'] == 200) {
+        print("code 200");
+        // print("USER " + response[JSON_OBJECT_USER].toString());
+        return User.fromMap(response[JSON_OBJECT_USER]);
+      } else {
+        if (response['status'] is int) {
+          return Failure(response['status'], response['message']);
+        } else {
+          return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+        }
+      }
     } catch (e) {
       return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
     }

@@ -24,10 +24,12 @@ class NewFunctionDetailViewModel {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final customerId = data[DBConstant.CUSTOMER_ID];
     final functionId = data[DBConstant.FUNCTION_ID];
-    print("customer id " + customerId.toString() + "function id " + functionId.toString());
-    await Provider.of<CustomerProvider>(context,listen: false).loadFunction(customerId,functionId);
-    
- 
+    print("customer id " +
+        customerId.toString() +
+        "function id " +
+        functionId.toString());
+    await Provider.of<CustomerProvider>(context, listen: false)
+        .loadFunction(customerId, functionId);
   }
 
   Future<String> saveNewCustomer(
@@ -41,6 +43,7 @@ class NewFunctionDetailViewModel {
         print(customer.toMap().toString());
         if (await NetworkInfo.isConnected()) {
           final customerId = await DBHelper.insertCustomer(customer);
+
           if (customerId is int) {
             customer.customerId = int.parse(customerId.toString());
             await Provider.of<CustomerProvider>(context, listen: false)
