@@ -5,6 +5,8 @@ class Constant {
   static const String testBaseUrl = "https://5d972.wiremockapi.cloud";
   static const String newCustomerEvent = "/new_customer_event";
   static const String getCaterer = "/get_caterer_detail";
+  static const String getFutureFunctions = "/get_future_functions";
+
   static const String registration = "/attendance_register.php";
   static const String getAllCompanies =
       "/attendance_register_get_all_companies.php";
@@ -175,6 +177,7 @@ const String JSON_IS_ACTIVE = "isActive";
 
 const String JSON_OBJECT_USER = "user";
 const String JSON_OBJECT_CATERER = "caterer";
+const String JSON_OBJECT_FUNCTIONS = "functions";
 
 abstract class SharedPreferencesKeys {
   static const String PREF_KEY_EMP_ID = "PREF_KEY_EMP_ID";

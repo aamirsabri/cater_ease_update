@@ -76,6 +76,7 @@ class LoginViewModelController {
       await _sharedPreferences.setString(EMAIL, email.toString());
       await _sharedPreferences.setString(PASSWORD, password.toString());
       catererId = (result as user.User).catererId;
+      await _sharedPreferences.setString(CATERER_ID, catererId.toString());
       print("cat id " + catererId);
       await Provider.of<CatererProvider>(context, listen: false)
           .fetchCatererDetail(catererId);

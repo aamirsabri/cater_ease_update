@@ -1,6 +1,8 @@
+import 'package:cater_ease/app/app_pref.dart';
 import 'package:cater_ease/model/caterer_model.dart';
 import 'package:cater_ease/model/customer_event.dart';
 import 'package:cater_ease/model/customer_event_model.dart';
+import 'package:cater_ease/model/customer_function_model.dart';
 import 'package:cater_ease/model/requests.dart';
 import 'package:cater_ease/model/response.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -166,8 +168,10 @@ class AppServiceClient {
         return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
       }
       if (response['status'] == 200) {
-        print("response messege " + response['message']);
-        return response["message"];
+        print("response messege " + response[JSON_OBJECT_FUNCTIONS]);
+        return response[JSON_OBJECT_FUNCTIONS].map((function) {
+          return CustomerFunction.fromMap(function);
+        }).toList();
       } else {
         print("response messege else " + response['message']);
         if (response['status'] is int) {
@@ -185,6 +189,36 @@ class AppServiceClient {
     try {
       var url = Uri.parse(Constant.testBaseUrl + Constant.login);
       Map<String, dynamic> argument = login.toMap();
+      var response = await getRawHttp(url, argument);
+      if (response is Failure) {
+        return response;
+      }
+      if (response == null) {
+        return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+      }
+      print("status   sssss : " + response['status'].toString());
+      if (response['status'] == 200) {
+        print("code 200");
+        // print("USER " + response[JSON_OBJECT_USER].toString());
+        return User.fromMap(response[JSON_OBJECT_USER]);
+      } else {
+        if (response['status'] is int) {
+          return Failure(response['status'], response['message']);
+        } else {
+          return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+        }
+      }
+    } catch (e) {
+      return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+    }
+  }
+
+  static Future<dynamic> getPendingFutureFunctions(String catererId) async {
+    List functions = [];
+
+    try {
+      var url = Uri.parse(Constant.testBaseUrl + Constant.getFutureFunctions);
+      Map<String, dynamic> argument = {CATERER_ID: catererId};
       var response = await getRawHttp(url, argument);
       if (response is Failure) {
         return response;

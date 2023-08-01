@@ -1,15 +1,19 @@
+import 'package:cater_ease/app/app_pref.dart';
 import 'package:cater_ease/app/database/dbhelper.dart';
 import 'package:cater_ease/app/deviceinfo.dart';
 import 'package:cater_ease/app/functions.dart';
+import 'package:cater_ease/network/apis.dart';
 import 'package:cater_ease/network/networkinfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../model/customer_function_model.dart';
 import '../../model/customer_model.dart';
+import '../../network/failure.dart';
 import '../string_manager.dart';
 
 class HomeViewModelController {
@@ -18,22 +22,34 @@ class HomeViewModelController {
   BuildContext context;
   HomeViewModelController(this.context);
 
-  Future<List<FutureFunctionView>> getCustomerFutureFunction()async{
+  Future<List<FutureFunctionView>> getCustomerFutureFunction() async {
     List<FutureFunctionView> futureFunctions = [];
-    try{
-      if(!(await NetworkInfo.isConnected())){
+    try {
+      if (!(await NetworkInfo.isConnected())) {
         EasyLoading.dismiss();
         EasyLoading.showError(AppStrings.errorNotConnected);
         return [];
       }
-      final result = await DBHelper.getFutureCustomerFunctions();
-      for(CustomerFunction customerFunction in result){
-        Customer customer = await DBHelper.getCustomerFromId(customerFunction.customerId);
-        FutureFunctionView futureFunctionView = FutureFunctionView(customer, customerFunction);
+      final SharedPreferences _sharedPreferences =
+          await SharedPreferences.getInstance();
+      String? catererId = await _sharedPreferences.getString(CATERER_ID);
+      final result =
+          await AppServiceClient.getPendingFutureFunctions(catererId!);
+      if (result is Failure) {
+        print("result " + result.toString());
+        return List.empty();
+      }
+
+      for (CustomerFunction customerFunction
+          in List<CustomerFunction>.from(result)) {
+        Customer customer =
+            await DBHelper.getCustomerFromId(customerFunction.customerId);
+        FutureFunctionView futureFunctionView =
+            FutureFunctionView(customer, customerFunction);
         futureFunctions.add(futureFunctionView);
       }
       return futureFunctions;
-    }catch(e){
+    } catch (e) {
       print(e.toString());
       EasyLoading.dismiss();
       EasyLoading.showError(e.toString());
@@ -47,8 +63,6 @@ class HomeViewModelController {
     String result = "Error while Registration!";
 
     try {
-  
-
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       String catererId = await generateCatererId();
@@ -93,12 +107,10 @@ class HomeViewModelController {
     EasyLoading.dismiss();
     return result;
   }
-
-
-
 }
+
 class FutureFunctionView {
   CustomerFunction customerFunction;
   Customer customer;
-  FutureFunctionView(this.customer,this.customerFunction);
+  FutureFunctionView(this.customer, this.customerFunction);
 }
