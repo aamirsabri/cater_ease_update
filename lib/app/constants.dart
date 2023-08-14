@@ -4,6 +4,7 @@ class Constant {
   // static const String testBaseUrl = "https://tech.mocklab.io";
   static const String testBaseUrl = "https://5d972.wiremockapi.cloud";
   static const String newCustomerEvent = "/new_customer_event";
+  static const String newCustomer = "/add_new_customer";
   static const String getCaterer = "/get_caterer_detail";
   static const String getFutureFunctions = "/get_future_functions";
 
@@ -159,6 +160,12 @@ const String COL_LOGO = "logo";
 const String COL_MOBILE = "mobile";
 const String COL_PLACE = "place";
 const String COL_IS_ACTIVE = "isActive";
+
+const String COL_CUSTOMER_ID = "customerId";
+const String COL_CUSTOMER_NAME = "customerName";
+const String COL_CUSTOMER_MOBILE = "mobile";
+const String COL_CUSTOMER_ADDRESS = "address";
+const String COL_CUSTOMER_EMAIL = "email";
 
 const String COL_IMEI = "imei";
 const String COL_MSG = "msg";

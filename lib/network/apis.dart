@@ -3,6 +3,7 @@ import 'package:cater_ease/model/caterer_model.dart';
 import 'package:cater_ease/model/customer_event.dart';
 import 'package:cater_ease/model/customer_event_model.dart';
 import 'package:cater_ease/model/customer_function_model.dart';
+import 'package:cater_ease/model/customer_model.dart';
 import 'package:cater_ease/model/requests.dart';
 import 'package:cater_ease/model/response.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -66,6 +67,30 @@ class AppServiceClient {
         return Caterer.fromMap(response[JSON_OBJECT_CATERER]);
       } else {
         print("response messege else " + response['message']);
+        if (response['status'] is int) {
+          return Failure(response['status'], response['message']);
+        } else {
+          return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+        }
+      }
+    } catch (e) {
+      return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+    }
+  }
+
+  static Future<dynamic> createNewCustomer(Customer customer) async {
+    try {
+      var url = Uri.parse(Constant.testBaseUrl + Constant.newCustomer);
+      var response = await getRawHttp(url, customer.toMap());
+      if (response is Failure) {
+        return response;
+      }
+      if (response == null) {
+        return Failure(ResponseCode.UNKNOWN, ResponseMessage.UNKNOWN);
+      }
+      if (response['status'] == 200) {
+        return response[COL_CUSTOMER_ID];
+      } else {
         if (response['status'] is int) {
           return Failure(response['status'], response['message']);
         } else {

@@ -4,6 +4,7 @@ import 'package:cater_ease/app/functions.dart';
 import 'package:cater_ease/domain/caterer_provider.dart';
 import 'package:cater_ease/domain/customer_provider.dart';
 import 'package:cater_ease/model/customer_function_model.dart';
+import 'package:cater_ease/network/apis.dart';
 import 'package:cater_ease/network/networkinfo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -27,14 +28,16 @@ class NewFunctionNewViewModel {
             customerName: name, mobile: mobile, email: email, address: address);
         print(customer.toMap().toString());
         if (await NetworkInfo.isConnected()) {
-          final customerId = await DBHelper.insertCustomer(customer);
-          if (customerId is int) {
-            customer.customerId = int.parse(customerId.toString());
+          // final customerId = await DBHelper.insertCustomer(customer);
+
+          final result = await AppServiceClient.createNewCustomer(customer);
+          if (result is int) {
+            customer.customerId = int.parse(result.toString());
             await Provider.of<CustomerProvider>(context, listen: false)
                 .updateCustomer(customer);
             return "success";
           } else {
-            return "error while inserting new customer";
+            return result.status;
           }
         } else {
           return "check your internet connection";

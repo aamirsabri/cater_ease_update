@@ -28,21 +28,22 @@ class Customer {
 
   factory Customer.fromMap(Map<String, dynamic>? data) {
     return Customer(
-        customerId: data?[DBConstant.CUSTOMER_ID],
-        customerName: data?[DBConstant.CUSTOMER_NAME],
-        address: data?[DBConstant.ADDRESS] ?? "",
-        email: data?[DBConstant.EMAIL] ?? "",
-        mobile: data?[DBConstant.CUSTOMER_MOBILE]);
+        customerId: data?[COL_CUSTOMER_ID],
+        customerName: data?[COL_CUSTOMER_NAME],
+        address: data?[COL_CUSTOMER_ADDRESS] ?? "",
+        email: data?[COL_CUSTOMER_EMAIL] ?? "",
+        mobile: data?[COL_CUSTOMER_MOBILE]);
   }
 
   Map<String, dynamic> toMap() {
     return {
-      DBConstant.CUSTOMER_NAME: customerName,
-      DBConstant.EMAIL: email ?? "",
-      DBConstant.CUSTOMER_MOBILE: mobile,
-      DBConstant.ADDRESS: address ?? ""
+      COL_CUSTOMER_NAME: customerName,
+      COL_CUSTOMER_EMAIL: email ?? "",
+      COL_CUSTOMER_MOBILE: mobile,
+      COL_CUSTOMER_ADDRESS: address ?? ""
     };
   }
 
-  String toString() => "ID: ${customerId} Name: ${customerName} Address: ${address!} ?? '' Email: ${email} ";
+  String toString() =>
+      "ID: ${customerId} Name: ${customerName} Address: ${address!} ?? '' Email: ${email} ";
 }
